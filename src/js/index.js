@@ -83,7 +83,7 @@
 
 
                         // Use saved class
-                        var savedClassId = localStorage.getItem("classId");
+                        var savedClassId = localStorage.getItem(professionSelect.val() + "/classId");
                         if (savedClassId && classSelect.find("option[value='" + savedClassId + "']").length) {
                             logStorageProcess("Using the saved class #" + savedClassId);
 
@@ -107,8 +107,8 @@
     
     classSelect.change(function () {
         // Save selected class
-        localStorage.setItem('classId', classSelect.val());
-        logStorageProcess("Saved the selection of class #" + classSelect.val());
+        localStorage.setItem(professionSelect.val() + '/classId', classSelect.val());
+        logStorageProcess("Saved the selection of class #" + classSelect.val() + ' for profession #' + professionSelect.val());
 
 
         if (classSelect.val() !== '') {
