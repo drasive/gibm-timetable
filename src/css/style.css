@@ -1,0 +1,54 @@
+/* General
+   ================================================== */
+html, body {
+    background-color: rgb(245, 245, 245);
+    height: 100%;
+}
+
+
+.wrapper {
+    height: 100%;
+    min-height: 600px;
+}
+
+.content {
+    min-height: 100%;
+    margin: 0 auto -60px; /* The bottom margin is the negative value of the footer's height */
+}
+
+footer {
+    height: 60px;
+}
+
+
+/* Containers
+   ================================================== */
+/* Similar to Bootstraps text-center class, but with !important */
+.text-center {
+    text-align: center !important;
+}
+
+
+.options-horizontal > span + span:before {
+    color: #aaa;
+    content: "/\00a0";
+    padding: 0 3px;
+}
+
+
+/* Headers
+   ================================================== */
+
+
+
+/* Controls
+   ================================================== */
+.inline {
+    display: inline-block;
+}
+
+
+.modal-opener:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
