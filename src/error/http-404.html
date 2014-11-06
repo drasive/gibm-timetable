@@ -35,6 +35,47 @@
 	<meta name="msapplication-square310x310logo" content="/images/favicons/mstile-310x310.png" />
   </head>
   <body>
+    <!-- @if DEBUG=true -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <br />
+                <h3>DEBUG BUILD</h3>
+                <p>
+                    This version of the product is only intended for development purposes and <b>not suitable for public or productive usage.</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-2">
+                <h4>Build</h4>
+                <p>
+                    Version: <!-- @echo VERSION --> (<!-- @echo VERSION_TYPE -->)
+                </p>
+                <p>
+                    Date: <!-- @echo BUILD_DATE --><br />
+                    Type: <!-- @echo BUILD_TYPE --><br />
+                </p>
+            </div>
+            <div class="col-sm-5">
+                <h4>Version Control</h4>
+                <p>
+                    Commit: <a href="https://github.com/drasive/IsItYourBirthday/commit/<!-- @echo COMMIT_HASH -->" target="_blank"><!-- @echo COMMIT_HASH --></a><br />
+                    Branch: <a href="https://github.com/drasive/IsItYourBirthday/tree/<!-- @echo COMMIT_BRANCH -->" target="_blank"><!-- @echo COMMIT_BRANCH --></a>
+                </p>
+                <p>
+                    Message: <!-- @echo COMMIT_MESSAGE --><br />
+                    Date: <!-- @echo COMMIT_DATE --><br />
+                    Author: <!-- @echo COMMIT_AUTHOR -->
+                </p>
+            </div>
+        </div>
+
+        <hr />
+    </div>
+    <!-- @endif -->
+    
     <!-- TODO: Content -->
   </body>
 </html>
