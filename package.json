@@ -1,6 +1,6 @@
 {
   "name": "gibm-timetable",
-  "description": "Displays timetables for the classes at the GIB Muttenz (Switzerland).",
+  "description": "Displays timetables for the classes at the GIBM (Switzerland).",
   "version": "0.0.0",
   "homepage": "https://github.com/drasive/gibm-timetable",
   "repository": {
