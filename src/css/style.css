@@ -1,0 +1,70 @@
+/* General
+   ================================================== */
+html, body {
+    background-color: rgb(245, 245, 245);
+    height: 100%;
+}
+
+
+.wrapper {
+    height: 100%;
+    min-height: 600px;
+}
+
+.content {
+    min-height: 100%;
+    margin: 0 auto -40px; /* The bottom margin is the negative value of the footer's height */
+}
+
+footer {
+    height: 40px;
+}
+
+
+/* Containers
+   ================================================== */
+/* Similar to Bootstraps text-left class, but with !important */
+.text-left {
+    text-align: left !important;
+}
+
+/* Similar to Bootstraps text-center class, but with !important */
+.text-center {
+    text-align: center !important;
+}
+
+
+.options-horizontal > span + span:before {
+    color: #aaa;
+    content: "/\00a0";
+    padding: 0 3px;
+}
+
+.modal-header {
+    padding-bottom: 0;
+}
+
+.modal-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+/* Headers
+   ================================================== */
+h1 {
+    margin-bottom: 30px;
+}
+
+
+/* Controls
+   ================================================== */
+.inline {
+    display: inline-block;
+}
+
+
+.modal-opener:hover {
+    cursor: pointer;
+    text-decoration: none;
+}

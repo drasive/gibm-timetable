@@ -22,12 +22,12 @@ prod:
 ### Helpers ###
 # Lint source files
 lint:
-  - 'newer:jshint'
+  - 'jshint'
   
-  - 'newer:csslint'
-  - 'newer:lesslint'
+  - 'csslint'
+  - 'lesslint'
   
-  - 'newer:jsonlint'
+  - 'jsonlint'
 
 
 ### Aliases ###
@@ -35,6 +35,7 @@ build_dev:
   - 'gitinfo'  
   - 'newer:concurrent:optimize'
   
+  - 'newer:includes:dev'
   - 'newer:preprocess:dev'
   - 'newer:uglify:dev'
   - 'newer:cssmin:dev'
@@ -48,6 +49,7 @@ build_prod:
   - 'clean:prod'  
   - 'concurrent:optimize'
   
+  - 'includes:dev'
   - 'preprocess:prod'
   - 'htmlmin:prod'
   - 'uglify:dev'

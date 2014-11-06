@@ -1,7 +1,7 @@
 module.exports = {
   preprocess: {
     files: ['src/**/*.html'],
-    tasks: ['gitinfo', 'newer:preprocess:dev']
+    tasks: ['gitinfo', 'newer:includes:dev', 'newer:preprocess:dev']
   },
   uglify: {
     files: ['src/js/**/*.js'],
@@ -15,8 +15,12 @@ module.exports = {
     files: ['src/css/**/*.less'],
     tasks: ['newer:less:dev']
   },
-  copy: {
+  copy_build: {
     files: ['src/**/*.*'],
-    tasks: ['newer:copy:build', 'newer:copy:dev']
+    tasks: ['newer:copy:build']
+  },
+  copy_dev: {
+    files: ['.tmp/dist/**/*.*'],
+    tasks: ['newer:copy:dev']
   }
 };
