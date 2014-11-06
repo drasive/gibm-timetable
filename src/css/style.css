@@ -13,16 +13,21 @@ html, body {
 
 .content {
     min-height: 100%;
-    margin: 0 auto -60px; /* The bottom margin is the negative value of the footer's height */
+    margin: 0 auto -30px; /* The bottom margin is the negative value of the footer's height */
 }
 
 footer {
-    height: 60px;
+    height: 30px;
 }
 
 
 /* Containers
    ================================================== */
+/* Similar to Bootstraps text-left class, but with !important */
+.text-left {
+    text-align: left !important;
+}
+
 /* Similar to Bootstraps text-center class, but with !important */
 .text-center {
     text-align: center !important;
