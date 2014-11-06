@@ -28,8 +28,7 @@
             });
             
             // Fade in profession selection
-            professionSelection.stop();
-            professionSelection.fadeIn();
+            professionSelection.stop().fadeIn();
             
             // TODO: Read saved selection            
         },
@@ -45,6 +44,7 @@
     professionSelect.change(function() {        
         if (professionSelect.val() !== '') {
             classSelection.fadeOut();
+            timetableContainer.fadeOut();
             // TODO: Show loading animation
             
             console.debug('Requesting classes for profession #' + professionSelect.val());
@@ -66,8 +66,7 @@
                        });
                        
                        // Fade in class selection
-                       classSelection.stop();
-                       classSelection.fadeIn();
+                       classSelection.stop().fadeIn();
                        
                        // TODO: Save selection
                     } 
@@ -79,6 +78,8 @@
             });
         }
         else {
+            // TODO: Something
+            // Do not show results
             classSelection.fadeOut();
         }
     });
@@ -101,7 +102,7 @@
                 success: function(data) {
                     console.log('Sucessfully received ' + data.length + ' lessons');
                     
-                    if (professionSelect.val() !== '-') { // Profession selection hasn't changed during AJAX request
+                    if (classSelect.val() !== '-') { // Class selection hasn't changed during AJAX request
                        // Clear old lessons
                        timetable.empty();
                        
@@ -123,8 +124,7 @@
                        }
                        
                        // Fade in timetable container
-                       timetableContainer.stop();
-                       timetableContainer.fadeIn();
+                       timetableContainer.stop().fadeIn();
                     } 
                 },
                 error: function(xhr, status, error) {
@@ -134,6 +134,8 @@
             });
         }
         else {
+            // TODO: Something
+            // Do not show results
             timetableContainer.fadeOut();
         }
     });
@@ -144,7 +146,13 @@
     }
     
     function formatTime(timeString) {
-        // TODO: __
+        // Provided string is in format hh:MM:ss.
+        // Return the first 5 chars (hh:MM).
+
+        if (timeString.length >= 5) {
+            return timeString.substr(0, 5);
+        }
+
         return timeString;
     }
     

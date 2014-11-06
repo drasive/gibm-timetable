@@ -13,11 +13,11 @@ html, body {
 
 .content {
     min-height: 100%;
-    margin: 0 auto -30px; /* The bottom margin is the negative value of the footer's height */
+    margin: 0 auto -40px; /* The bottom margin is the negative value of the footer's height */
 }
 
 footer {
-    height: 30px;
+    height: 40px;
 }
 
 
@@ -40,10 +40,21 @@ footer {
     padding: 0 3px;
 }
 
+.modal-header {
+    padding-bottom: 0;
+}
+
+.modal-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 
 /* Headers
    ================================================== */
-
+h1 {
+    margin-bottom: 30px;
+}
 
 
 /* Controls
