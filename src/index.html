@@ -44,12 +44,56 @@
     <!-- Noscript warning -->
     include "_noscript.html"
     
-    <!-- TODO: Content -->
-    <h1>GIBM Timetable</h1>
-    
-    <!-- Footer -->
-    include "_footer.html"
-    
+    <div class="wrapper">
+        <!-- Content -->
+        <div class="content">
+            <div class="container">            
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text-center">
+                        <h1>GIBM Timetable</h1>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 form-group">
+                        <p class="profession-selection">
+                            Please select your profession:
+                            <select id="profession" class="form-control">
+                            <option value="-">-</option>
+                        </select>
+                        </p>
+                        <p id="class-selection">
+                            Please select your class:
+                            <select id="class" class="form-control">
+                                <option value="-">-</option>
+                            </select>
+                        </p>
+                        
+                        <div id="timetable-container" class="table-responsive">
+                            <table id="timetable" class="table table-striped">					        
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Time</th>
+                                        <th>Teacher</th>
+                                        <th>Subject</th>
+                                        <th>Room</th>
+                                        <th>Comment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        include "_footer.html"        
+    </div>
     
     <!-- Scripts  -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
