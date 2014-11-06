@@ -25,7 +25,7 @@ module.exports = {
   
     files: [{
       expand: true,
-      cwd: 'src/',
+      cwd: '.tmp/dist/',
       src: '**/*.html',
       dest: '.tmp/dist/'
     }]
@@ -40,7 +40,7 @@ module.exports = {
   
     files: [{
       expand: true,
-      cwd: 'src/',
+      cwd: '.tmp/dist/',
       src: '**/*.html',
       dest: '.tmp/dist/'
     }]

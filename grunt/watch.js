@@ -1,7 +1,7 @@
 module.exports = {
   preprocess: {
     files: ['src/**/*.html'],
-    tasks: ['gitinfo', 'newer:preprocess:dev']
+    tasks: ['gitinfo', 'newer:includes:dev', 'newer:preprocess:dev']
   },
   uglify: {
     files: ['src/js/**/*.js'],
