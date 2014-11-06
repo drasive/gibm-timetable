@@ -22,12 +22,12 @@ prod:
 ### Helpers ###
 # Lint source files
 lint:
-  - 'newer:jshint'
+  - 'jshint'
   
-  - 'newer:csslint'
-  - 'newer:lesslint'
+  - 'csslint'
+  - 'lesslint'
   
-  - 'newer:jsonlint'
+  - 'jsonlint'
 
 
 ### Aliases ###
