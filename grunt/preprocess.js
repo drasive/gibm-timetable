@@ -2,7 +2,7 @@ module.exports = {
   options: {
     context: {
       VERSION: '<%= pkg.version %>',
-      VERSION_TYPE: 'ALPHA',      
+      VERSION_TYPE: 'BETA',      
       SHOW_VERSION_TYPE: true,
       
       BUILD_DATE: '<%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>',
