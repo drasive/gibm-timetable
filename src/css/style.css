@@ -32,6 +32,11 @@ h1 {
     }
 
 
+.btn-no-interaction:hover {
+    background-color: #fff;
+    background-size: 0;
+}
+
 .link-btn:hover {
     cursor: pointer;
     text-decoration: none;

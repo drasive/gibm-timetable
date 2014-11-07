@@ -16,7 +16,7 @@ function logAjaxProcess(message, isResponse) {
     if (isResponse) {
         console.info(logMessage);
     } else {
-        console.debug(logMessage);
+        console.log(logMessage);
     }
 }
 
