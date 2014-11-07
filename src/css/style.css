@@ -28,6 +28,12 @@ h1 {
 }
 
 
+.result-error, .result-no-data {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+
 .options-horizontal > span + span:before {
     color: #aaa;
     content: "/\00a0";
@@ -35,7 +41,7 @@ h1 {
 }
 
 
-.modal-opener:hover {
+.retry, .modal-opener:hover {
     cursor: pointer;
     text-decoration: none;
 }

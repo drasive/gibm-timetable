@@ -1,52 +1,65 @@
 ﻿$(function () {
 
     // Initialize UI
-    var professionSelection = $('#profession-selection');
-    var professionSelect = $('#profession');
+    var professionsContainer = $('#professions-container');
+    var professionsResult = $('#professions-result');
+    var professionsSelection = $('#profession');
+    var professionsError = $('#professions-error');
+    var professionsRetry = $('#professions-retry');
 
-    var classSelection = $('#class-selection');
-    var classSelect = $('#class');
+    var classesContainer = $('#classes-container');
+    var classesResult = $('#classes-result');
+    var classesSelection = $('#class');
+    var classesError = $('#classes-error');
+    var classesRetry = $('#classes-retry');
 
     var timetableContainer = $('#timetable-container');
-    var timetable = $('#timetable tbody');
-
     var weekCurrent = $('#week-current');
     var weekPrevious = $('#week-previous');
     var weekNext = $('#week-next');
     var weekReset = $('#week-reset');
+    var lessonsContainer = $('#lessons-container');
+    var lessonsResult = $('#lessons-result');
+    var lessons = lessonsResult.find('table tbody');
+    var lessonsNoData = $('#lessons-no-data');
+    var lessonsError = $('#lessons-error');
+    var lessonsRetry = $('#lessons-retry');
 
 
-    professionSelection.fadeOut(0);
-    classSelection.fadeOut(0);
-    timetableContainer.fadeOut(0);
-
-    loadProfessions();
+    professionsContainer.hide(0);
+    professionsError.hide(0);
+    classesContainer.hide(0);
+    classesError.hide(0);
+    timetableContainer.hide(0);
+    lessonsNoData.hide(0);
+    lessonsError.hide(0);
 
     var today = new Date();
     setCurrentWeek(getWeekOfYear(today), today.getFullYear());
-    weekCurrent.prop('title', 'Go to current week (' + formatWeekOfYear(getWeekOfYear(today), today.getFullYear()) + ')');
-
+    weekReset.prop('title', 'Go to current week (' + formatWeekOfYear(getWeekOfYear(today), today.getFullYear()) + ')');
     $('#legalTabs a:first').tab('show');
 
+    loadProfessions();
+
     // Handle events
-    professionSelect.change(function () {
+    professionsSelection.change(function () {
         // Save selected profession
-        localStorage.setItem('professionId', professionSelect.val());
-        logStorageProcess("Saved the selection of profession #" + professionSelect.val());
+        localStorage.setItem('professionId', professionsSelection.val());
+        logStorageProcess("Saved the selection of profession #" + professionsSelection.val());
 
-
-        if (professionSelect.val() !== '') {
+        // Load classes
+        if (professionsSelection.val() !== '') {
             loadClasses();
         }
     });
 
-    classSelect.change(function () {
+    classesSelection.change(function () {
         // Save selected class
-        localStorage.setItem(professionSelect.val() + '/classId', classSelect.val());
-        logStorageProcess("Saved the selection of class #" + classSelect.val() + ' for profession #' + professionSelect.val());
+        localStorage.setItem('p' + professionsSelection.val() + '/classId', classesSelection.val());
+        logStorageProcess("Saved the selection of class #" + classesSelection.val() + ' for profession #' + professionsSelection.val());
 
-
-        if (classSelect.val() !== '') {
+        // Load timetable
+        if (classesSelection.val() !== '') {
             loadTimetable();
         }
     });
@@ -87,6 +100,19 @@
         loadTimetable(false);
     });
 
+
+    professionsRetry.click(function () {
+        loadProfessions();
+    });
+
+    classesRetry.click(function () {
+        loadClasses();
+    });
+
+    lessonsRetry.click(function () {
+        loadTimetable();
+    });
+
     // Methods
     function loadProfessions() {
         // TODO: Show loading animation
@@ -99,99 +125,115 @@
 
                 // Add professions
                 $.each(data, function (index, item) {
-                    professionSelect.append('<option value="' + item.beruf_id + '">' + item.beruf_name + '</option>');
+                    professionsSelection.append('<option value="' + item.beruf_id + '">' + item.beruf_name + '</option>');
                 });
 
-                // Fade in profession selection
-                professionSelection.fadeIn();
+                // Show result
+                professionsResult.show(0);
+                professionsError.hide(0);
 
-
-                // Use saved profession
+                // TODO: Do when the rest of the method is executed
+                // Use saved selection
                 var savedProfessionId = localStorage.getItem("professionId");
-                if (savedProfessionId && professionSelect.find("option[value='" + savedProfessionId + "']").length) {
+                if (savedProfessionId && professionsSelection.find("option[value='" + savedProfessionId + "']").length) {
                     logStorageProcess("Using the saved profession #" + savedProfessionId);
 
-                    professionSelect.val(savedProfessionId);
+                    professionsSelection.val(savedProfessionId);
                     loadClasses();
                 }
             },
             error: function (xhr, status, error) {
-                // TODO: Handle error
-                logAjaxError('Failed to receive professions', xhr, status, error);
+                logAjaxError('Failed to retrieve professions', xhr, status, error);
+
+                professionsResult.hide(0);
+                professionsError.show(0);
             }
         });
+
+        // Fade in container
+        professionsContainer.fadeIn();
     }
 
     function loadClasses() {
-        classSelection.fadeOut();
+        classesContainer.fadeOut();
         timetableContainer.fadeOut();
         // TODO: Show loading animation
 
-        logAjaxProcess('Requesting classes for profession #' + professionSelect.val());
+        logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
         $.ajax('http://home.gibm.ch/interfaces/133/klassen.php', {
             data: {
-                'beruf_id': professionSelect.val()
+                'beruf_id': professionsSelection.val()
             },
             dataType: 'json',
             success: function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' classes', true);
 
-                if (professionSelect.val() !== '-') { // Profession selection hasn't changed during AJAX request
+                if (professionsSelection.val() !== '-') { // Profession selection hasn't changed during AJAX request
                     // Clear old classes
-                    classSelect.find('option[value != "-"]').remove();
+                    classesSelection.find('option[value != "-"]').remove();
 
                     // Add new classes
                     $.each(data, function (index, item) {
-                        classSelect.append('<option value="' + item.klasse_id + '">' + item.klasse_name + '</option>');
+                        classesSelection.append('<option value="' + item.klasse_id + '">' + item.klasse_name + '</option>');
                     });
 
-                    // Fade in class selection
-                    classSelection.stop().fadeIn();
+                    // Show result
+                    classesResult.show(0);
+                    classesError.hide(0);
 
-
-                    // Use saved class
-                    var savedClassId = localStorage.getItem(professionSelect.val() + "/classId");
-                    if (savedClassId && classSelect.find("option[value='" + savedClassId + "']").length) {
+                    // TODO: Do when the rest of the method is executed
+                    // Use saved selection
+                    var savedClassId = localStorage.getItem('p' + professionsSelection.val() + "/classId");
+                    if (savedClassId && classesSelection.find("option[value='" + savedClassId + "']").length) {
                         logStorageProcess("Using the saved class #" + savedClassId);
 
-                        classSelect.val(savedClassId);
+                        classesSelection.val(savedClassId);
                         loadTimetable();
                     }
                 }
             },
             error: function (xhr, status, error) {
-                // TODO: Handle error
-                logAjaxError('Failed to receive classes', xhr, status, error);
+                logAjaxError('Failed to retrieve classes', xhr, status, error);
+
+                classesResult.hide(0);
+                classesError.show(0);
             }
         });
+
+        // Fade in container
+        classesContainer.stop().fadeIn();
     }
 
     function loadTimetable(fadeWeekSelection) {
         if (typeof fadeWeekSelection === "undefined") { fadeWeekSelection = true; }
 
-        var fadingTarget = fadeWeekSelection ? timetableContainer : timetable;
+        var fadingTarget = fadeWeekSelection ? timetableContainer : lessonsContainer;
         fadingTarget.fadeOut();
         // TODO: Show loading animation
 
         var week = formatWeekOfYear(weekCurrent.data('week'), weekCurrent.data('year'), true);
-        logAjaxProcess('Requesting lessons for class #' + classSelect.val() + ' in week ' + week);
+        logAjaxProcess('Requesting lessons for class #' + classesSelection.val() + ' in week ' + week);
         $.ajax('http://home.gibm.ch/interfaces/133/tafel.php', {
             data: {
-                'klasse_id': classSelect.val(),
+                'klasse_id': classesSelection.val(),
                 'woche': week
             },
             dataType: 'json',
             success: function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' lessons', true);
 
-                if (classSelect.val() !== '-') { // Class selection hasn't changed during AJAX request
+                if (classesSelection.val() !== '-') { // Class selection hasn't changed during AJAX request
                     // Clear old lessons
-                    timetable.empty();
+                    lessons.empty();
 
                     // Add new lessons
                     if (data && data.length) {
+                        lessonsResult.show(0);
+                        lessonsNoData.hide(0);
+                        lessonsError.hide(0);
+
                         $.each(data, function (index, item) {
-                            var row = $('<tr></tr>').appendTo(timetable);
+                            var row = $('<tr></tr>').appendTo(lessons);
                             $('<td>' + getDayOfWeek(item.tafel_wochentag) + '</td>').appendTo(row);
                             $('<td>' + formatTime(item.tafel_von) + ' - ' + formatTime(item.tafel_bis) + '</td>').appendTo(row);
                             $('<td>' + item.tafel_lehrer + '</td>').appendTo(row);
@@ -201,19 +243,23 @@
                         });
                     }
                     else {
-                        // TODO: Handle no data
-
+                        lessonsResult.hide(0);
+                        lessonsNoData.show(0);
+                        lessonsError.hide(0);
                     }
-
-                    // Fade in timetable container
-                    fadingTarget.stop().fadeIn();
                 }
             },
             error: function (xhr, status, error) {
-                // TODO: Handle error
-                logAjaxError('Failed to receive lessons', xhr, status, error);
+                logAjaxError('Failed to retrieve lessons', xhr, status, error);
+
+                lessonsResult.hide(0);
+                lessonsNoData.hide(0);
+                lessonsError.show(0);
             }
         });
+
+        // Fade in container
+        fadingTarget.stop().fadeIn();
     }
 
 
@@ -249,39 +295,14 @@
     }
 
     function formatTime(timeString) {
-        // Provided string is in format hh:MM:ss.
-        // Return the first 5 chars (hh:MM).
+        // The provided string is in the format hh:MM:ss.
+        // Returning the first 5 chars (hh:MM).
 
         if (timeString.length >= 5) {
             return timeString.substr(0, 5);
         }
 
         return timeString;
-    }
-
-
-    function logUiProcess(message) {
-        console.debug('[UI] ' + message);
-    }
-
-    function logAjaxProcess(message, isResponse) {
-        if (typeof isResponse === "undefined") { isResponse = false; }
-
-        var logMessage = '[AJAX] ' + message;
-
-        if (isResponse) {
-            console.info(logMessage);
-        } else {
-            console.debug(logMessage);
-        }
-    }
-
-    function logAjaxError(message, xhr, status, error) {
-        console.error(message + ' (' + status + '): ' + xhr.responseText);
-    }
-
-    function logStorageProcess(message) {
-        console.debug('[STORAGE] ' + message);
     }
 
 });
