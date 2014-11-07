@@ -44,12 +44,18 @@
 
         var arrowKeyLeft = '37';
         var arrowKeyRight = '39';
+        var wKey = '65';
+        var dKey = '68';
 
         var areLessonsShown = lessonsContainer.is(":visible");
-        if (e.keyCode == arrowKeyLeft && areLessonsShown) {
+        if ((e.keyCode == arrowKeyLeft || e.keyCode == wKey) &&
+            areLessonsShown) {
+
             weekPrevious.trigger('click');
         }
-        else if (e.keyCode == arrowKeyRight && areLessonsShown) {
+        else if ((e.keyCode == arrowKeyRight || e.keyCode == dKey) &&
+                 areLessonsShown) {
+
             weekNext.trigger('click');
         }
     });
@@ -261,7 +267,7 @@
                 if (classesSelection.val() !== '-') { // Class selection hasn't changed during AJAX request
                     // Clear old lessons
                     lessons.empty();
-                    
+
                     if (data && data.length) {
                         // Show result
                         lessonsResult.show(0);
@@ -271,7 +277,7 @@
                         // Add new lessons
                         $.each(data, function (index, item) {
                             var row = $('<tr></tr>').appendTo(lessons);
-                            $('<td>' + getDayOfWeek(item.tafel_wochentag) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
+                            $('<td>' + formatDayOfWeek(item.tafel_wochentag) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
                             $('<td>' + formatTime(item.tafel_von) + ' - ' + formatTime(item.tafel_bis) + '</td>').appendTo(row);
                             $('<td>' + item.tafel_lehrer + '</td>').appendTo(row);
                             $('<td>' + item.tafel_longfach + '</td>').appendTo(row);
@@ -312,26 +318,18 @@
 
         logUiProcess('Updated the selected week to ' + formatWeekOfYear(week, year));
 
-        // Set text
+        // Set text and title
         weekCurrent.text('Week ' + formatWeekOfYear(week, year));
+
+        var weekStart = getDateOfWeek(week, year);
+        var weekEnd = addDaysToDate(weekStart, 7);
+        weekCurrent.prop('title', formatDate(weekStart) + ' - ' + formatDate(weekEnd));
     }
 
     // Helpers
-    function getDayOfWeek(dayIndex) {
+    function formatDayOfWeek(dayIndex) {
         return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][dayIndex];
     }
-
-    function getWeekOfYear(date) {
-        return $.datepicker.iso8601Week(date);
-    }
-
-    function getWeeksInYear(year) {
-        return Math.max(
-           getWeekOfYear(new Date(year, 11, 31)),
-           getWeekOfYear(new Date(year, 11, 31 - 7))
-        );
-    }
-
 
     function formatDate(isoString) {
         return $.datepicker.formatDate('dd.mm', new Date(isoString));
