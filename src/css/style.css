@@ -1,4 +1,4 @@
-/* General
+/* Frame
    ================================================== */
 html, body {
     background-color: rgb(245, 245, 245);
@@ -8,7 +8,7 @@ html, body {
 
 .wrapper {
     height: 100%;
-    min-height: 600px;
+    min-height: 650px;
 }
 
 .content {
@@ -21,16 +21,10 @@ footer {
 }
 
 
-/* Containers
+/* General
    ================================================== */
-/* Similar to Bootstraps text-left class, but with !important */
-.text-left {
-    text-align: left !important;
-}
-
-/* Similar to Bootstraps text-center class, but with !important */
-.text-center {
-    text-align: center !important;
+h1 {
+    margin-bottom: 30px;
 }
 
 
@@ -38,6 +32,12 @@ footer {
     color: #aaa;
     content: "/\00a0";
     padding: 0 3px;
+}
+
+
+.modal-opener:hover {
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .modal-header {
@@ -50,21 +50,18 @@ footer {
 }
 
 
-/* Headers
+/* Helpers
    ================================================== */
-h1 {
-    margin-bottom: 30px;
+/* Similar to Bootstraps text-left class, but with !important */
+.text-left {
+    text-align: left !important;
 }
 
+/* Similar to Bootstraps text-center class, but with !important */
+.text-center {
+    text-align: center !important;
+}
 
-/* Controls
-   ================================================== */
 .inline {
     display: inline-block;
-}
-
-
-.modal-opener:hover {
-    cursor: pointer;
-    text-decoration: none;
 }

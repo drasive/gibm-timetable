@@ -46,47 +46,66 @@
 
     <div class="wrapper">
         <!-- Content -->
-        <div class="content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2 text-center">
-                        <h1>GIBM Timetable</h1>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <h1>GIBM Timetable</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-group">
+                    <p class="profession-selection" title="Your profession">
+                        Please select your profession:
+                        <select id="profession" class="form-control">
+                            <option value="-">-</option>
+                        </select>
+                    </p>
+                    <p id="class-selection">
+                        Please select your class:
+                        <select id="class" class="form-control" title="Your class">
+                            <option value="-">-</option>
+                        </select>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="row text-center" style="margin-bottom: 10px;">
+                    <div class="col-sm-12">
+                        <div class="btn-group">
+                            <button id="week-previous" class="btn btn-default" title="Go to previous week">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </button>
+                            <button id="week-reset" class="btn btn-default">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                <span id="week-current"></span>
+                            </button>
+                            <button id="week-next" class="btn btn-default" title="Go to next week">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3 form-group">
-                        <p class="profession-selection">
-                            Please select your profession:
-                            <select id="profession" class="form-control">
-                                <option value="-">-</option>
-                            </select>
-                        </p>
-                        <p id="class-selection">
-                            Please select your class:
-                            <select id="class" class="form-control">
-                                <option value="-">-</option>
-                            </select>
-                        </p>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
                     <div class="col-md-12 form-group">
-                        <div id="timetable-container" class="table-responsive">
-                            <table id="timetable" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Day</th>
-                                        <th>Time</th>
-                                        <th>Teacher</th>
-                                        <th>Subject</th>
-                                        <th>Room</th>
-                                        <th>Comment</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                        <div id="timetable-container">
+                            <div class="table-responsive">
+                                <table id="timetable" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Time</th>
+                                            <th>Teacher</th>
+                                            <th>Subject</th>
+                                            <th>Room</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
