@@ -39,6 +39,21 @@
     weekReset.prop('title', 'Go to current week (' + formatWeekOfYear(getWeekOfYear(today), today.getFullYear()) + ')');
     $('#legalTabs a:first').tab('show');
 
+    $(document).keydown(function (e) {
+        if (typeof e === "undefined") { e = window.event; }
+
+        var arrowKeyLeft = '37';
+        var arrowKeyRight = '39';
+        
+        var areLessonsShown = lessonsContainer.is(":visible");
+        if (e.keyCode == arrowKeyLeft && areLessonsShown) {
+            weekPrevious.trigger('click');
+        }
+        else if (e.keyCode == arrowKeyRight && areLessonsShown) {
+            weekNext.trigger('click');
+        }
+    });
+
     loadProfessions();
 
     // Handle events
