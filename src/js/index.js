@@ -135,6 +135,9 @@
 
     // Methods
     function loadProfessions() {
+        // Fade out container
+        professionsContainer.stop().fadeOut();
+
         // TODO: Show loading animation
 
         logAjaxProcess('Requesting all professions');
@@ -153,7 +156,9 @@
                 professionsResult.show(0);
                 professionsError.hide(0);
 
-                // TODO: Do when the rest of the method is executed
+                // Fade in container
+                professionsContainer.stop().fadeIn();
+
                 // Use saved selection
                 var savedProfessionId = localStorage.getItem("professionId");
                 if (savedProfessionId && savedProfessionId !== '-' && professionsSelection.find("option[value='" + savedProfessionId + "']").length) {
@@ -166,19 +171,21 @@
             error: function (xhr, status, error) {
                 logAjaxError('Failed to retrieve professions', xhr, status, error);
 
+                // Show error message
                 professionsResult.hide(0);
                 professionsError.show(0);
+
+                // Fade in container
+                professionsContainer.stop().fadeIn();
             }
         });
-
-        // TODO: Wait for AJAX call to finish
-        // Fade in container
-        professionsContainer.fadeIn();
     }
 
     function loadClasses() {
+        // Fade out container
         classesContainer.stop().fadeOut();
         timetableContainer.stop().fadeOut();
+
         // TODO: Show loading animation
 
         logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
@@ -204,7 +211,9 @@
                     classesResult.show(0);
                     classesError.hide(0);
 
-                    // TODO: Do when the rest of the method is executed
+                    // Fade in container
+                    classesContainer.stop().fadeIn();
+
                     // Use saved selection
                     var savedClassId = localStorage.getItem('p' + professionsSelection.val() + "/classId");
                     if (savedClassId && savedClassId !== '-' && classesSelection.find("option[value='" + savedClassId + "']").length) {
@@ -218,21 +227,23 @@
             error: function (xhr, status, error) {
                 logAjaxError('Failed to retrieve classes', xhr, status, error);
 
+                // Show error message
                 classesResult.hide(0);
                 classesError.show(0);
+
+                // Fade in container
+                classesContainer.stop().fadeIn();
             }
         });
-
-        // TODO: Wait for AJAX call to finish
-        // Fade in container
-        classesContainer.stop().fadeIn();
     }
 
     function loadTimetable(fadeWeekSelection) {
         if (typeof fadeWeekSelection === "undefined") { fadeWeekSelection = true; }
 
+        // Fade out container
         var fadingTarget = fadeWeekSelection ? timetableContainer : lessonsContainer;
         fadingTarget.stop().fadeOut();
+
         // TODO: Show loading animation
 
         var week = formatWeekOfYear(weekCurrent.data('week'), weekCurrent.data('year'), true);
@@ -250,13 +261,14 @@
                 if (classesSelection.val() !== '-') { // Class selection hasn't changed during AJAX request
                     // Clear old lessons
                     lessons.empty();
-
-                    // Add new lessons
+                    
                     if (data && data.length) {
+                        // Show result
                         lessonsResult.show(0);
                         lessonsNoData.hide(0);
                         lessonsError.hide(0);
 
+                        // Add new lessons
                         $.each(data, function (index, item) {
                             var row = $('<tr></tr>').appendTo(lessons);
                             $('<td>' + getDayOfWeek(item.tafel_wochentag) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
@@ -268,24 +280,28 @@
                         });
                     }
                     else {
+                        // Show no-data message
                         lessonsResult.hide(0);
                         lessonsNoData.show(0);
                         lessonsError.hide(0);
                     }
+
+                    // Fade in container
+                    fadingTarget.stop().fadeIn();
                 }
             },
             error: function (xhr, status, error) {
                 logAjaxError('Failed to retrieve lessons', xhr, status, error);
 
+                // Show error message
                 lessonsResult.hide(0);
                 lessonsNoData.hide(0);
                 lessonsError.show(0);
+
+                // Fade in container
+                fadingTarget.stop().fadeIn();
             }
         });
-
-        // TODO: Wait for AJAX call to finish
-        // Fade in container
-        fadingTarget.stop().fadeIn();
     }
 
 
