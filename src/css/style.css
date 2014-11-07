@@ -27,23 +27,25 @@ h1 {
     margin-bottom: 30px;
 }
 
+    h1 a, h1 a:hover {
+        color: inherit;
+    }
+
+.link-btn:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
 
 .result-error, .result-no-data {
     margin-top: 5px;
     font-size: 14px;
 }
 
-
 .options-horizontal > span + span:before {
     color: #aaa;
     content: "/\00a0";
     padding: 0 3px;
-}
-
-
-.retry, .modal-opener:hover {
-    cursor: pointer;
-    text-decoration: none;
 }
 
 .modal-header {
