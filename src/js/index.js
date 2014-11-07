@@ -73,7 +73,7 @@
             week--;
         } else {
             year--;
-            week = 52; // TODO: Improve week number calculation
+            week = getWeeksInYear(year);
         }
 
         setCurrentWeek(week, year);
@@ -84,7 +84,7 @@
         var week = weekCurrent.data('week');
         var year = weekCurrent.data('year');
 
-        if (week < 52) { // TODO: Improve end of year detection
+        if (week < getWeeksInYear(year)) {
             week++;
         } else {
             year++;
@@ -280,8 +280,14 @@
     }
 
     function getWeekOfYear(date) {
-        // TODO: Improve a little
-        return 45;
+        return $.datepicker.iso8601Week(date);
+    }
+
+    function getWeeksInYear(year) {
+        return Math.max(
+           getWeekOfYear(new Date(year, 11, 31)),
+           getWeekOfYear(new Date(year, 11, 31 - 7))
+        );
     }
 
 
