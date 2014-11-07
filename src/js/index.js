@@ -38,11 +38,6 @@
         if (professionSelect.val() !== '') {
             loadClasses();
         }
-        else {
-            // TODO: Something
-            // Do not show results
-            classSelection.fadeOut();
-        }
     });
 
     classSelect.change(function () {
@@ -53,11 +48,6 @@
 
         if (classSelect.val() !== '') {
             loadTimetable();
-        }
-        else {
-            // TODO: Something
-            // Do not show results
-            timetableContainer.fadeOut();
         }
     });
 
@@ -74,7 +64,7 @@
         }
 
         setCurrentWeek(week, year);
-        loadTimetable(); // TODO: Do not fade week selection
+        loadTimetable(false);
     });
 
     weekNext.click(function () {
@@ -89,17 +79,16 @@
         }
 
         setCurrentWeek(week, year);
-        loadTimetable(); // TODO: Do not fade week selection
+        loadTimetable(false);
     });
 
     weekReset.click(function () {
         setCurrentWeek(getWeekOfYear(today), today.getFullYear());
-        loadTimetable(); // TODO: Do not fade week selection
+        loadTimetable(false);
     });
 
     // Methods
     function loadProfessions() {
-        professionSelection.fadeOut();
         // TODO: Show loading animation
 
         logAjaxProcess('Requesting all professions');
@@ -114,7 +103,7 @@
                 });
 
                 // Fade in profession selection
-                professionSelection.stop().fadeIn();
+                professionSelection.fadeIn();
 
 
                 // Use saved profession
@@ -177,8 +166,11 @@
         });
     }
 
-    function loadTimetable() {
-        timetableContainer.fadeOut();
+    function loadTimetable(fadeWeekSelection) {
+        if (typeof fadeWeekSelection === "undefined") { fadeWeekSelection = true; }
+
+        var fadingTarget = fadeWeekSelection ? timetableContainer : timetable;
+        fadingTarget.fadeOut();
         // TODO: Show loading animation
 
         var week = formatWeekOfYear(weekCurrent.data('week'), weekCurrent.data('year'), true);
@@ -214,7 +206,7 @@
                     }
 
                     // Fade in timetable container
-                    timetableContainer.stop().fadeIn();
+                    fadingTarget.stop().fadeIn();
                 }
             },
             error: function (xhr, status, error) {
@@ -247,7 +239,7 @@
     }
 
     function formatWeekOfYear(week, year, isForApi) {
-        isForApi = isForApi || false;
+        if (typeof isForApi === "undefined") { isForApi = false; }
 
         if (isForApi) {
             return week + '-' + year;
@@ -273,7 +265,7 @@
     }
 
     function logAjaxProcess(message, isResponse) {
-        isResponse = isResponse || false;
+        if (typeof isResponse === "undefined") { isResponse = false; }
 
         var logMessage = '[AJAX] ' + message;
 
