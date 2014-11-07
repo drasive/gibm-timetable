@@ -140,6 +140,7 @@
         logAjaxProcess('Requesting all professions');
         $.ajax('http://home.gibm.ch/interfaces/133/berufe.php', {
             dataType: 'json',
+            timeout: 60 * 1000,
             success: function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' professions', true);
 
@@ -155,7 +156,7 @@
                 // TODO: Do when the rest of the method is executed
                 // Use saved selection
                 var savedProfessionId = localStorage.getItem("professionId");
-                if (savedProfessionId && professionsSelection.find("option[value='" + savedProfessionId + "']").length) {
+                if (savedProfessionId && savedProfessionId !== '-' && professionsSelection.find("option[value='" + savedProfessionId + "']").length) {
                     logStorageProcess("Using the saved profession #" + savedProfessionId);
 
                     professionsSelection.val(savedProfessionId);
@@ -170,6 +171,7 @@
             }
         });
 
+        // TODO: Wait for AJAX call to finish
         // Fade in container
         professionsContainer.fadeIn();
     }
@@ -185,6 +187,7 @@
                 'beruf_id': professionsSelection.val()
             },
             dataType: 'json',
+            timeout: 60 * 1000,
             success: function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' classes', true);
 
@@ -204,7 +207,7 @@
                     // TODO: Do when the rest of the method is executed
                     // Use saved selection
                     var savedClassId = localStorage.getItem('p' + professionsSelection.val() + "/classId");
-                    if (savedClassId && classesSelection.find("option[value='" + savedClassId + "']").length) {
+                    if (savedClassId && savedClassId !== '-' && classesSelection.find("option[value='" + savedClassId + "']").length) {
                         logStorageProcess("Using the saved class #" + savedClassId);
 
                         classesSelection.val(savedClassId);
@@ -220,6 +223,7 @@
             }
         });
 
+        // TODO: Wait for AJAX call to finish
         // Fade in container
         classesContainer.stop().fadeIn();
     }
@@ -239,6 +243,7 @@
                 'woche': week
             },
             dataType: 'json',
+            timeout: 60 * 1000,
             success: function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' lessons', true);
 
@@ -278,6 +283,7 @@
             }
         });
 
+        // TODO: Wait for AJAX call to finish
         // Fade in container
         fadingTarget.stop().fadeIn();
     }
