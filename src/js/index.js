@@ -155,8 +155,8 @@
     }
 
     function loadClasses() {
-        classesContainer.fadeOut();
-        timetableContainer.fadeOut();
+        classesContainer.stop().fadeOut();
+        timetableContainer.stop().fadeOut();
         // TODO: Show loading animation
 
         logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
@@ -208,7 +208,7 @@
         if (typeof fadeWeekSelection === "undefined") { fadeWeekSelection = true; }
 
         var fadingTarget = fadeWeekSelection ? timetableContainer : lessonsContainer;
-        fadingTarget.fadeOut();
+        fadingTarget.stop().fadeOut();
         // TODO: Show loading animation
 
         var week = formatWeekOfYear(weekCurrent.data('week'), weekCurrent.data('year'), true);
@@ -234,7 +234,7 @@
 
                         $.each(data, function (index, item) {
                             var row = $('<tr></tr>').appendTo(lessons);
-                            $('<td>' + getDayOfWeek(item.tafel_wochentag) + '</td>').appendTo(row);
+                            $('<td>' + getDayOfWeek(item.tafel_wochentag) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
                             $('<td>' + formatTime(item.tafel_von) + ' - ' + formatTime(item.tafel_bis) + '</td>').appendTo(row);
                             $('<td>' + item.tafel_lehrer + '</td>').appendTo(row);
                             $('<td>' + item.tafel_longfach + '</td>').appendTo(row);
@@ -271,17 +271,22 @@
         logUiProcess('Updated the selected week to ' + formatWeekOfYear(week, year));
 
         // Set text
-        weekCurrent.text(formatWeekOfYear(week, year));
+        weekCurrent.text('Week ' + formatWeekOfYear(week, year));
     }
 
     // Helpers
     function getDayOfWeek(dayIndex) {
-        return ["Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat.", "Sun."][dayIndex];
+        return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][dayIndex];
     }
 
     function getWeekOfYear(date) {
         // TODO: Improve a little
         return 45;
+    }
+
+
+    function formatDate(isoString) {
+        return $.datepicker.formatDate('dd.mm', new Date(isoString));
     }
 
     function formatWeekOfYear(week, year, isForApi) {

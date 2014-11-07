@@ -31,11 +31,11 @@ h1 {
         color: inherit;
     }
 
+
 .link-btn:hover {
     cursor: pointer;
     text-decoration: none;
 }
-
 
 .result-error, .result-no-data {
     margin-top: 5px;
@@ -60,16 +60,19 @@ h1 {
 
 /* Helpers
    ================================================== */
-/* Similar to Bootstraps text-left class, but with !important */
+.inline {
+    display: inline-block;
+}
+
+
 .text-left {
     text-align: left !important;
 }
 
-/* Similar to Bootstraps text-center class, but with !important */
 .text-center {
     text-align: center !important;
 }
 
-.inline {
-    display: inline-block;
+.transform-none {
+    text-transform: none;
 }
