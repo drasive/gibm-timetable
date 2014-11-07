@@ -1,18 +1,18 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>HTTP 404 - GIBM Timetable</title>
-  
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Style -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.0/paper/bootstrap.min.css" rel="stylesheet">
-    
-    
+
+
     <link href="/css/error-bundle.min.css" rel="stylesheet">
-    
+
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png" />
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png" />
@@ -33,14 +33,47 @@
     <meta name="msapplication-square150x150logo" content="/images/favicons/mstile-150x150.png" />
     <meta name="msapplication-wide310x150logo" content="/images/favicons/mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="/images/favicons/mstile-310x310.png" />
-  </head>
-  <body>
+</head>
+<body>
     <!-- Debug info -->
     include "../_debug-info.html"
+
+    <div class="wrapper">
+        <!-- Content -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <h1>HTTP 404</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 col-sm-offset-2 text-center">
+                        <p class="lead">
+                            Sorry, the requested file doesn't exist.
+                        </p>
+                        <p>
+                            You were either misguided by an incorrect link or you are doing something fishy here.
+                        </p>
+
+                        <br />
+                        <p>
+                            Back to the <a href="/index.html">homepage</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        include "../_footer.html"
+    </div>
     
-    <!-- TODO: Content -->
     
-    <!-- Footer -->
-    include "../_footer.html"
-  </body>
+    <!-- Scripts  -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</body>
 </html>
