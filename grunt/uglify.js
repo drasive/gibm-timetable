@@ -17,6 +17,11 @@ module.exports = {
           'src/js/noscript.js',
           'src/js/no-fouc-end.js'
         ]
+      },
+      {
+        '.tmp/dist/js/error-bundle.min.js': [
+          'src/js/error.js'
+        ]
       }
     ]
   }
