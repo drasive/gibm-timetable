@@ -44,7 +44,7 @@
 
         var arrowKeyLeft = '37';
         var arrowKeyRight = '39';
-        
+
         var areLessonsShown = lessonsContainer.is(":visible");
         if (e.keyCode == arrowKeyLeft && areLessonsShown) {
             weekPrevious.trigger('click');
@@ -63,8 +63,11 @@
         logStorageProcess("Saved the selection of profession #" + professionsSelection.val());
 
         // Load classes
-        if (professionsSelection.val() !== '') {
+        if (professionsSelection.val() !== '-') {
             loadClasses();
+        } else {
+            classesContainer.stop().fadeOut();
+            timetableContainer.stop().fadeOut();
         }
     });
 
@@ -74,8 +77,10 @@
         logStorageProcess("Saved the selection of class #" + classesSelection.val() + ' for profession #' + professionsSelection.val());
 
         // Load timetable
-        if (classesSelection.val() !== '') {
+        if (classesSelection.val() !== '-') {
             loadTimetable();
+        } else {
+            timetableContainer.stop().fadeOut();
         }
     });
 
