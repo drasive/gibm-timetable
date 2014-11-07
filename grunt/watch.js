@@ -16,7 +16,7 @@ module.exports = {
     tasks: ['newer:less:dev']
   },
   copy_build: {
-    files: ['src/**/*.*'],
+    files: ['src/**/*.{txt,xml,ico}', 'src/images/**/*.{png,jpg,gif,svg}'],
     tasks: ['newer:copy:build']
   },
   copy_dev: {
