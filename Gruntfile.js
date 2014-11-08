@@ -6,9 +6,9 @@ module.exports = function(grunt) {
   // Load and execute grunt tasks
   require('load-grunt-config')(grunt, {
     configPath: [
-	  path.join(process.cwd(), 'build/'),
-	  path.join(process.cwd(), 'build/tasks/')
-	],
+      path.join(process.cwd(), 'build/'),
+      path.join(process.cwd(), 'build/tasks/')
+    ],
     jitGrunt: true,
     data: {
       pkg: grunt.file.readJSON("package.json")
