@@ -20,6 +20,10 @@ prod:
 
 
 ### Helpers ###
+#
+test:
+  - 'nightwatch'
+
 # Lint source files
 lint:
   - 'jshint'
