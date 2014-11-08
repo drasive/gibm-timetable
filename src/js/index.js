@@ -62,7 +62,7 @@
 
     loadProfessions();
 
-    // Handle events
+    // Event handlers
     professionsSelection.change(function () {
         // Save selected profession
         localStorage.setItem('professionId', professionsSelection.val());
