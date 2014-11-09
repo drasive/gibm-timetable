@@ -1,7 +1,7 @@
 module.exports = {
   options: {
     "src_folders": ["test/"],
-    "output_folder": "test/results/",  
+    "output_folder": "test/results/", 
     
     "selenium" : {
       "start_process": true,
