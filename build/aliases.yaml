@@ -20,7 +20,7 @@ prod:
 
 
 ### Helpers ###
-#
+# Execute tests
 test:
   - 'nightwatch'
 

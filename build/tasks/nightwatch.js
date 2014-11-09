@@ -1,7 +1,7 @@
 module.exports = {
   options: {
-    "src_folders": ["test/"],
-    "output_folder": "test/results/", 
+    "src_folders": ["test/unit", "test/smoke", "test/acceptance"],
+    "output_folder": "test/results/",
     
     "selenium" : {
       "start_process": true,
@@ -18,7 +18,7 @@ module.exports = {
       "default": {
         "launch_url": "http://localhost",
         "selenium_host": "localhost",
-     "selenium_port": 4444,
+        "selenium_port": 4444,
         "silent": true,
         "screenshots": {
           "enabled": false,
