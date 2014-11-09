@@ -276,7 +276,7 @@
 
                         // Add new lessons
                         $.each(data, function (index, item) {
-                            var row = $('<tr></tr>').appendTo(lessons);
+                            var row = $('<tr id="' + item.tafel_id + '"></tr>').appendTo(lessons);
                             $('<td>' + formatDayOfWeek(item.tafel_wochentag) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
                             $('<td>' + formatTime(item.tafel_von) + ' - ' + formatTime(item.tafel_bis) + '</td>').appendTo(row);
                             $('<td>' + item.tafel_lehrer + '</td>').appendTo(row);
