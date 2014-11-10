@@ -266,7 +266,7 @@
                     } else {
                         // Update no-data message
                         var weekStart = getDateOfWeek(week, year);
-                        var weekEnd = addDaysToDate(weekStart, 7);
+                        var weekEnd = addDaysToDate(weekStart, 6);
                         lessonsNoData.text('There is no school during this week (' + formatDate(weekStart) + ' - ' + formatDate(weekEnd) + ') for this class.');
 
                         // Show no-data message
@@ -304,7 +304,7 @@
         weekCurrent.text('Week ' + formatWeekOfYear(week, year));
 
         var weekStart = getDateOfWeek(week, year);
-        var weekEnd = addDaysToDate(weekStart, 7);
+        var weekEnd = addDaysToDate(weekStart, 6);
         weekCurrent.prop('title', formatDate(weekStart) + ' - ' + formatDate(weekEnd));
     }
 
