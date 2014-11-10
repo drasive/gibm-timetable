@@ -39,22 +39,6 @@
     weekReset.prop('title', 'Go to current week (' + formatWeekOfYear(getWeekOfYear(today), today.getFullYear()) + ')');
     $('#legalTabs a:first').tab('show');
 
-    $(document).keydown(function (e) {
-        if (typeof e === "undefined") { e = window.event; }
-
-        var arrowKeyLeft = '37';
-        var arrowKeyRight = '39';
-        var wKey = '65';
-        var dKey = '68';
-
-        var areLessonsShown = lessonsContainer.is(":visible");
-        if ((e.keyCode === arrowKeyLeft || e.keyCode === wKey) && areLessonsShown) {
-            weekPrevious.trigger('click');
-        } else if ((e.keyCode === arrowKeyRight || e.keyCode === dKey) && areLessonsShown) {
-            weekNext.trigger('click');
-        }
-    });
-
     loadProfessions();
 
     // Event handlers
@@ -117,6 +101,22 @@
     weekReset.click(function () {
         setCurrentWeek(getWeekOfYear(today), today.getFullYear());
         loadTimetable(false);
+    });
+
+    $(document).keydown(function (e) {
+        if (typeof e === "undefined") { e = window.event; }
+
+        var arrowKeyLeft = 37;
+        var arrowKeyRight = 39;
+        var wKey = 65;
+        var dKey = 68;
+
+        var areLessonsShown = lessonsContainer.is(":visible");
+        if ((e.keyCode === arrowKeyLeft || e.keyCode === wKey) && areLessonsShown) {
+            weekPrevious.trigger('click');
+        } else if ((e.keyCode === arrowKeyRight || e.keyCode === dKey) && areLessonsShown) {
+            weekNext.trigger('click');
+        }
     });
 
 
