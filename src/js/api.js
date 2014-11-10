@@ -8,6 +8,10 @@ function getProfessions() {
 }
 
 function getClasses(professionId) {
+    if (typeof professionId !== "undefined" && professionId !== null && !isInteger(professionId)) {
+        return null;
+    }
+
     return $.ajax('http://home.gibm.ch/interfaces/133/klassen.php', {
         data: {
             'beruf_id': professionId

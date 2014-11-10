@@ -310,7 +310,7 @@
 
     // Helpers
     function formatDayOfWeek(dayIndex) {
-        if (typeof dayIndex !== 'number' || dayIndex === null ||
+        if (typeof dayIndex !== 'number' || !isInteger(dayIndex) ||
             dayIndex < 0 || dayIndex > 6) {
             return null;
         }

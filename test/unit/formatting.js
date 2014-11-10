@@ -1,4 +1,6 @@
-QUnit.test( "Days of week", function(assert) {
+module("Formatting");
+
+QUnit.test( "Format day of week", function(assert) {
     assert.strictEqual(formatDayOfWeek(0), "Sunday", "0 is Sunday");
     assert.strictEqual(formatDayOfWeek(1), "Monday", "1 is Monday");
     assert.strictEqual(formatDayOfWeek(2), "Tuesday", "2 is Tuesday");
@@ -7,7 +9,8 @@ QUnit.test( "Days of week", function(assert) {
     assert.strictEqual(formatDayOfWeek(5), "Friday", "5 is Friday" );
     assert.strictEqual(formatDayOfWeek(6), "Saturday", "6 is Saturday");
     
-    assert.strictEqual(formatDayOfWeek(), null, "null is null");
+    assert.strictEqual(formatDayOfWeek(), null, "undefined is null");
+	assert.strictEqual(formatDayOfWeek(null), null, "null is null");
     assert.strictEqual(formatDayOfWeek(-1), null, "-1 is null");
     assert.strictEqual(formatDayOfWeek(123), null, "123 is null");
     assert.strictEqual(formatDayOfWeek(13.37), null, "13.37 is null");
@@ -15,7 +18,7 @@ QUnit.test( "Days of week", function(assert) {
 });
 
 function formatDayOfWeek(dayIndex) {
-    if (typeof dayIndex !== 'number' || dayIndex === null ||
+    if (typeof dayIndex !== 'number' || !isInteger(dayIndex) ||
         dayIndex < 0 || dayIndex > 6) {
         return null;
     }
