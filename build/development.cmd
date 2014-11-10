@@ -1,3 +1,4 @@
+cd ..
 start "gibm-timetable" cmd.exe /k ""
 start "gibm-timetable - development" cmd.exe /k "grunt dev"
 
