@@ -15,7 +15,7 @@ QUnit.test( "Days of week", function(assert) {
 });
 
 function formatDayOfWeek(dayIndex) {
-    if (dayIndex === null || typeof dayIndex !== 'number' ||
+    if (typeof dayIndex !== 'number' || dayIndex === null ||
         dayIndex < 0 || dayIndex > 6) {
         return null;
     }
