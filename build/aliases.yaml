@@ -22,6 +22,7 @@ prod:
 ### Helpers ###
 # Execute tests
 test:
+  - 'qunit'
   - 'nightwatch'
 
 # Lint source files

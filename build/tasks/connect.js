@@ -1,19 +1,19 @@
 module.exports = {
   options: {
     hostname: 'localhost',
-	keepalive: true,
-	open: true
+    keepalive: true,
+    open: true
   },
   
   dev: {
     options: {
-	  port: 8080,
+      port: 8080,
       base: 'dist/dev/'
     }
   },
   prod: {
     options: {
-	  port: 8081,
+      port: 8081,
       base: 'dist/prod/'
     }
   }
