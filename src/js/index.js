@@ -65,8 +65,7 @@
     // Event handlers
     professionsSelection.change(function () {
         // Save selected profession
-        localStorage.setItem('professionId', professionsSelection.val());
-        logStorageProcess("Saved the selection of profession #" + professionsSelection.val());
+        storageSet('professionId', professionsSelection.val());
 
         // Load classes
         if (professionsSelection.val() !== '-') {
@@ -79,8 +78,7 @@
 
     classesSelection.change(function () {
         // Save selected class
-        localStorage.setItem('p' + professionsSelection.val() + '/classId', classesSelection.val());
-        logStorageProcess("Saved the selection of class #" + classesSelection.val() + ' for profession #' + professionsSelection.val());
+        storageSet('p' + professionsSelection.val() + '/classId', classesSelection.val());
 
         // Load timetable
         if (classesSelection.val() !== '-') {
@@ -166,9 +164,9 @@
                 professionsContainer.stop().fadeIn();
 
                 // Use saved selection
-                var savedProfessionId = localStorage.getItem("professionId");
-                if (savedProfessionId && savedProfessionId !== '-' && professionsSelection.find("option[value='" + savedProfessionId + "']").length) {
-                    logStorageProcess("Using the saved profession #" + savedProfessionId);
+                var savedProfessionId = storageGet("professionId");
+                if (savedProfessionId !== null && savedProfessionId !== '-' && professionsSelection.find("option[value='" + savedProfessionId + "']").length) {
+                    logUiProcess("Using the saved profession #" + savedProfessionId);
 
                     professionsSelection.val(savedProfessionId);
                     loadClasses();
@@ -221,9 +219,9 @@
                     classesContainer.stop().fadeIn();
 
                     // Use saved selection
-                    var savedClassId = localStorage.getItem('p' + professionsSelection.val() + "/classId");
-                    if (savedClassId && savedClassId !== '-' && classesSelection.find("option[value='" + savedClassId + "']").length) {
-                        logStorageProcess("Using the saved class #" + savedClassId);
+                    var savedClassId = storageGet('p' + professionsSelection.val() + "/classId");
+                    if (savedClassId !== null && savedClassId !== '-' && classesSelection.find("option[value='" + savedClassId + "']").length) {
+                        logUiProcess("Using the saved class #" + savedClassId);
 
                         classesSelection.val(savedClassId);
                         loadTimetable();
@@ -277,7 +275,7 @@
                         // Add new lessons
                         $.each(data, function (index, item) {
                             var row = $('<tr id="l' + item.tafel_id + '"></tr>').appendTo(lessons);
-                            $('<td>' + formatDayOfWeek(item.tafel_wochentag).substr(0, 3) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
+                            $('<td>' + formatDayOfWeek(parseInt(item.tafel_wochentag)).substr(0, 3) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
                             $('<td>' + formatTime(item.tafel_von) + ' - ' + formatTime(item.tafel_bis) + '</td>').appendTo(row);
                             $('<td>' + item.tafel_lehrer + '</td>').appendTo(row);
                             $('<td>' + item.tafel_longfach + '</td>').appendTo(row);
@@ -328,7 +326,7 @@
 
     // Helpers
     function formatDayOfWeek(dayIndex) {
-        if (dayIndex === null || typeof dayIndex !== 'number' ||
+        if (typeof dayIndex !== 'number' || dayIndex === null ||
             dayIndex < 0 || dayIndex > 6) {
             return null;
         }
