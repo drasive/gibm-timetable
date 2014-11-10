@@ -30,9 +30,9 @@ Feel free to contact me at [@drasive](https://twitter.com/drasive) or [dimitri.v
 Just run `npm install` in your project directory to install all dependencies.
 
 ### Building
-TL;DR: Run *development.cmd*, make changes and reload your browser at localhost:8080.
+TL;DR: Run *build/development.cmd*, make changes and reload your browser at localhost:8080.
 
-Runnig *development.cmd* will start the following three terminal windows:  
+Runnig *build/development.cmd* will start the following three terminal windows:  
 One for *manual command input*, one that initially builds and then *automatically rebuilds the website on file changes* and one to run a *local webserver running on port 8080*.  
 
 To get a preview of how the *production* build will look, run `grunt prod` in the manual input terminal to start a prod build and automatically run a secondary *local webserver on port 8081*.
