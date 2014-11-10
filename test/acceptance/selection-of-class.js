@@ -1,5 +1,5 @@
 module.exports = {
-  "Acceptance test - Selection of class influences displayed lessons (Spec. #6)" : function (browser) {
+  "Acceptance test - Selection of class displays correct lessons (Spec. #6, #7)" : function (browser) {
     browser
       .url("http://localhost:8080/index.html")
       .waitForElementVisible("body", 500)
