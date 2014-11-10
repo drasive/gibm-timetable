@@ -14,7 +14,7 @@ module.exports = {
       .click("#class option[value = '2467010']"); // Select class "IAP 14-18 B"
     
     browser.waitForElementVisible("#week-current", 5000); // Current week should be selectable
-    // TODO: Freezes test execution
+    // TODO: Freezes test execution (issue #2)
     //while (!browser.assert.valueContains("#week-current", "45 - 2014")) {
       browser.click("#week-previous");
     //}
