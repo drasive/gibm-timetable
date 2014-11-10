@@ -236,9 +236,10 @@
 
         // TODO: Show loading animation
 
-        var week = formatWeekOfYear(weekCurrent.data('week'), weekCurrent.data('year'), true);
-        logAjaxProcess('Requesting lessons for class #' + classesSelection.val() + ' in week ' + week);
-        getLessons(classesSelection.val(), weekCurrent.data('week'), weekCurrent.data('year'))
+        var week = weekCurrent.data('week');
+        var year = weekCurrent.data('year');
+        logAjaxProcess('Requesting lessons for class #' + classesSelection.val() + ' in week ' + formatWeekOfYear(week, year));
+        getLessons(classesSelection.val(), week, year)
             .success(function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' lessons', true);
 
@@ -263,6 +264,11 @@
                             $('<td>' + item.tafel_kommentar + '</td>').appendTo(row);
                         });
                     } else {
+                        // Update no-data message
+                        var weekStart = getDateOfWeek(week, year);
+                        var weekEnd = addDaysToDate(weekStart, 7);
+                        lessonsNoData.text('There is no school during this week (' + formatDate(weekStart) + ' - ' + formatDate(weekEnd) + ') for this class.');
+
                         // Show no-data message
                         lessonsResult.hide(0);
                         lessonsNoData.show(0);
