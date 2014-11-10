@@ -48,12 +48,12 @@
         var dKey = '68';
 
         var areLessonsShown = lessonsContainer.is(":visible");
-        if ((e.keyCode == arrowKeyLeft || e.keyCode == wKey) &&
+        if ((e.keyCode === arrowKeyLeft || e.keyCode === wKey) &&
             areLessonsShown) {
 
             weekPrevious.trigger('click');
         }
-        else if ((e.keyCode == arrowKeyRight || e.keyCode == dKey) &&
+        else if ((e.keyCode === arrowKeyRight || e.keyCode === dKey) &&
                  areLessonsShown) {
 
             weekNext.trigger('click');
@@ -277,7 +277,7 @@
                         // Add new lessons
                         $.each(data, function (index, item) {
                             var row = $('<tr id="l' + item.tafel_id + '"></tr>').appendTo(lessons);
-                            $('<td>' + formatDayOfWeek(item.tafel_wochentag) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
+                            $('<td>' + formatDayOfWeek(item.tafel_wochentag).substr(0, 3) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
                             $('<td>' + formatTime(item.tafel_von) + ' - ' + formatTime(item.tafel_bis) + '</td>').appendTo(row);
                             $('<td>' + item.tafel_lehrer + '</td>').appendTo(row);
                             $('<td>' + item.tafel_longfach + '</td>').appendTo(row);
@@ -328,7 +328,12 @@
 
     // Helpers
     function formatDayOfWeek(dayIndex) {
-        return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][dayIndex];
+        if (dayIndex === null || typeof dayIndex !== 'number' ||
+            dayIndex < 0 || dayIndex > 6) {
+            return null;
+        }
+
+        return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][dayIndex];
     }
 
     function formatDate(isoString) {
