@@ -1,6 +1,6 @@
 module.exports = {
   options: {
-    "src_folders": ["test/unit", "test/smoke", "test/acceptance"],
+    "src_folders": ["test/smoke", "test/acceptance"],
     "output_folder": "test/results/",
     
     "selenium" : {
