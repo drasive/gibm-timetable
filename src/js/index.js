@@ -48,14 +48,9 @@
         var dKey = '68';
 
         var areLessonsShown = lessonsContainer.is(":visible");
-        if ((e.keyCode === arrowKeyLeft || e.keyCode === wKey) &&
-            areLessonsShown) {
-
+        if ((e.keyCode === arrowKeyLeft || e.keyCode === wKey) && areLessonsShown) {
             weekPrevious.trigger('click');
-        }
-        else if ((e.keyCode === arrowKeyRight || e.keyCode === dKey) &&
-                 areLessonsShown) {
-
+        } else if ((e.keyCode === arrowKeyRight || e.keyCode === dKey) && areLessonsShown) {
             weekNext.trigger('click');
         }
     });
@@ -145,10 +140,8 @@
         // TODO: Show loading animation
 
         logAjaxProcess('Requesting all professions');
-        $.ajax('http://home.gibm.ch/interfaces/133/berufe.php', {
-            dataType: 'json',
-            timeout: 60 * 1000,
-            success: function (data) {
+        getProfessions()
+            .success(function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' professions', true);
 
                 // Add professions
@@ -171,8 +164,8 @@
                     professionsSelection.val(savedProfessionId);
                     loadClasses();
                 }
-            },
-            error: function (xhr, status, error) {
+            })
+            .error(function (xhr, status, error) {
                 logAjaxError('Failed to retrieve professions', xhr, status, error);
 
                 // Show error message
@@ -181,8 +174,7 @@
 
                 // Fade in container
                 professionsContainer.stop().fadeIn();
-            }
-        });
+            });
     }
 
     function loadClasses() {
@@ -193,13 +185,8 @@
         // TODO: Show loading animation
 
         logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
-        $.ajax('http://home.gibm.ch/interfaces/133/klassen.php', {
-            data: {
-                'beruf_id': professionsSelection.val()
-            },
-            dataType: 'json',
-            timeout: 60 * 1000,
-            success: function (data) {
+        getClasses(professionsSelection.val())
+            .success(function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' classes', true);
 
                 if (professionsSelection.val() !== '-') { // Profession selection hasn't changed during AJAX request
@@ -227,8 +214,8 @@
                         loadTimetable();
                     }
                 }
-            },
-            error: function (xhr, status, error) {
+            })
+            .error(function (xhr, status, error) {
                 logAjaxError('Failed to retrieve classes', xhr, status, error);
 
                 // Show error message
@@ -237,8 +224,7 @@
 
                 // Fade in container
                 classesContainer.stop().fadeIn();
-            }
-        });
+            });
     }
 
     function loadTimetable(fadeWeekSelection) {
@@ -252,14 +238,8 @@
 
         var week = formatWeekOfYear(weekCurrent.data('week'), weekCurrent.data('year'), true);
         logAjaxProcess('Requesting lessons for class #' + classesSelection.val() + ' in week ' + week);
-        $.ajax('http://home.gibm.ch/interfaces/133/tafel.php', {
-            data: {
-                'klasse_id': classesSelection.val(),
-                'woche': week
-            },
-            dataType: 'json',
-            timeout: 60 * 1000,
-            success: function (data) {
+        getLessons(classesSelection.val(), weekCurrent.data('week'), weekCurrent.data('year'))
+            .success(function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' lessons', true);
 
                 if (classesSelection.val() !== '-') { // Class selection hasn't changed during AJAX request
@@ -282,8 +262,7 @@
                             $('<td>' + item.tafel_raum + '</td>').appendTo(row);
                             $('<td>' + item.tafel_kommentar + '</td>').appendTo(row);
                         });
-                    }
-                    else {
+                    } else {
                         // Show no-data message
                         lessonsResult.hide(0);
                         lessonsNoData.show(0);
@@ -293,8 +272,8 @@
                     // Fade in container
                     fadingTarget.stop().fadeIn();
                 }
-            },
-            error: function (xhr, status, error) {
+            })
+            .error(function (xhr, status, error) {
                 logAjaxError('Failed to retrieve lessons', xhr, status, error);
 
                 // Show error message
@@ -304,8 +283,7 @@
 
                 // Fade in container
                 fadingTarget.stop().fadeIn();
-            }
-        });
+            });
     }
 
 
@@ -338,14 +316,8 @@
         return $.datepicker.formatDate('dd.mm', new Date(isoString));
     }
 
-    function formatWeekOfYear(week, year, isForApi) {
-        if (typeof isForApi === "undefined") { isForApi = false; }
-
-        if (isForApi) {
-            return week + '-' + year;
-        } else {
-            return week + ' - ' + year;
-        }
+    function formatWeekOfYear(week, year) {
+        return week + ' - ' + year;
     }
 
     function formatTime(timeString) {

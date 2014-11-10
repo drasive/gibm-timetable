@@ -13,6 +13,7 @@ module.exports = {
       {
         '.tmp/dist/js/index-bundle.min.js': [
           'src/js/common.js',
+		  'src/js/api.js',
           'src/js/index.js',
         
           'src/js/noscript.js',
