@@ -8,7 +8,8 @@ function getProfessions() {
 }
 
 function getClasses(professionId) {
-    if (typeof professionId !== "undefined" && professionId !== null && !isInteger(professionId)) {
+    // professionId may be an integer or undefined/ null
+    if (!isInteger(professionId) && typeof professionId !== "undefined" && professionId !== null) {
         return null;
     }
 
@@ -22,23 +23,30 @@ function getClasses(professionId) {
 }
 
 function getLessons(classId, week, year) {
-    if (typeof classId !== 'number' || !isInteger(classId)) {
+    // professionId may be an integer
+    // week may be an integer between 1 and 53 or undefined/ null, but only if year is undefinded/ null too
+    // year may be an integer or undefined/ null, but only if week is undefinded/ null too
+    if (!isInteger(classId)) {
         return null;
     }
-    if (typeof week !== "undefined" && week !== null && !isInteger(week)) {
+    if ((!isInteger(week) && typeof week !== "undefined" && week !== null) ||
+        (isInteger(week) && !isInteger(year))) {
         return null;
     }
-    if (typeof year !== "undefined" && year !== null && !isInteger(year)) {
+    if ((!isInteger(year) && typeof year !== "undefined" && year !== null) || 
+        (isInteger(year) && !isInteger(week))) {
         return null;
     }
 
-    var weekParameter = week + '-' + year;
+    var data = {
+        'klasse_id': classId
+    };
+    if (isInteger(week) && isInteger(year)) {
+        data.woche = week + '-' + year;
+    }
 
     return $.ajax('http://home.gibm.ch/interfaces/133/tafel.php', {
-        data: {
-            'klasse_id': classId,
-            'woche': weekParameter
-        },
+        data: data,
         dataType: 'json',
         timeout: apiTimeout
     });

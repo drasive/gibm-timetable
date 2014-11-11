@@ -1,7 +1,15 @@
 ﻿// General
-function isInteger(number) {
+function isNumber(object) {
+    return typeof object === "number";
+}
+
+function isInteger(object) {
+    if (!isNumber(object)) {
+        return false;
+    }
+
     // Source: https://stackoverflow.com/questions/3885817/how-to-check-if-a-number-is-float-or-integer#3885844
-    return number === +number && number === (number | 0);
+    return object === +object && object === (object | 0);
 }
 
 // Storage
