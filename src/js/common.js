@@ -1,4 +1,40 @@
-﻿// Date/ Time
+﻿// General
+function isNumber(object) {
+    return typeof object === "number";
+}
+
+function isInteger(object) {
+    if (!isNumber(object)) {
+        return false;
+    }
+
+    // Source: https://stackoverflow.com/questions/3885817/how-to-check-if-a-number-is-float-or-integer#3885844
+    return object === +object && object === (object | 0);
+}
+
+// Storage
+function storageSet(key, value) {
+    if (Modernizr.localstorage) {
+        localStorage.setItem(key, value);
+
+        logStorageProcess("Saved value '" + value + "' for key '" + key + "'");
+        return true;
+    }
+
+    logWarning("Local Storage is not supported (attempted write operation)");
+    return true;
+}
+
+function storageGet(key) {
+    if (Modernizr.localstorage) {
+        return localStorage.getItem(key);
+    }
+
+    logWarning("Local Storage is not supported (attempted read operation)");
+    return null;
+}
+
+// Date/ Time
 function getDateOfWeek(week, year) {
     var simple = new Date(year, 0, 1 + (week - 1) * 7);
     var dow = simple.getDay();
@@ -30,6 +66,15 @@ function addDaysToDate(date, days) {
 }
 
 // Logging
+function logWarning(message) {
+    console.warn(message);
+}
+
+function logError(message) {
+    console.error(message);
+}
+
+
 function logUiProcess(message) {
     console.debug('[UI] ' + message);
 }
