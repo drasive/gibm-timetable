@@ -185,7 +185,7 @@
         // TODO: Show loading animation
 
         logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
-        getClasses(professionsSelection.val())
+        getClasses(parseInt(professionsSelection.val()))
             .success(function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' classes', true);
 
@@ -239,7 +239,7 @@
         var week = weekCurrent.data('week');
         var year = weekCurrent.data('year');
         logAjaxProcess('Requesting lessons for class #' + classesSelection.val() + ' in week ' + formatWeekOfYear(week, year));
-        getLessons(classesSelection.val(), week, year)
+        getLessons(parseInt(classesSelection.val()), week, year)
             .success(function (data) {
                 logAjaxProcess('Sucessfully received ' + data.length + ' lessons', true);
 
@@ -310,7 +310,7 @@
 
     // Helpers
     function formatDayOfWeek(dayIndex) {
-        if (typeof dayIndex !== 'number' || dayIndex === null ||
+        if (typeof dayIndex !== 'number' || !isInteger(dayIndex) ||
             dayIndex < 0 || dayIndex > 6) {
             return null;
         }
