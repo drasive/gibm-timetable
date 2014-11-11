@@ -32,7 +32,7 @@ function getLessons(classId, week, year) {
         return null;
     }
 
-    var weekParameter = week + '-' + year;;
+    var weekParameter = week + '-' + year;
 
     return $.ajax('http://home.gibm.ch/interfaces/133/tafel.php', {
         data: {
