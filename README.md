@@ -1,4 +1,4 @@
-# gibm-timetable [![Dependency Status](https://gemnasium.com/drasive/gibm-timetable.svg)](https://gemnasium.com/drasive/gibm-timetable) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# gibm-timetable [![Dependency Status](https://gemnasium.com/drasive/gibm-timetable.svg)](https://gemnasium.com/drasive/gibm-timetable) [![Code Climate](https://codeclimate.com/github/drasive/gibm-timetable/badges/gpa.svg)](https://codeclimate.com/github/drasive/gibm-timetable) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Displays timetables for the classes at the GIBM (Switzerland).  
 This was a school project for module #133 at the [GIB Muttenz](http://www.gibm.ch) (Switzerland).
