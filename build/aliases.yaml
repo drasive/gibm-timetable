@@ -1,8 +1,11 @@
 ### Main ###
 # Build for debugging
 default:
-  - 'build_dev'
   - 'lint'
+  - 'unit'
+  - 'clean:tmp_dist'
+  - 'build_dev'
+
 
 # Build, then watch and recompile changed files for debugging
 dev:
@@ -13,29 +16,17 @@ dev:
 prev:
   - 'connect:dev'
 
+
 # Build, then run a local webserver for prod preview
 prod:
+  - 'lint'
+  - 'unit'
   - 'build_prod'
+  - 'ui'
   - 'connect:prod'
 
 
-### Helpers ###
-# Execute tests
-test:
-  - 'qunit'
-  - 'nightwatch'
-
-# Lint source files
-lint:
-  - 'jshint'
-  
-  - 'csslint'
-  - 'lesslint'
-  
-  - 'jsonlint'
-
-
-### Aliases ###
+### Building ###
 build_dev:
   - 'gitinfo'  
   - 'newer:concurrent:optimize'
@@ -51,7 +42,7 @@ build_dev:
 build_prod:
   - 'gitinfo'
   - 'clean:tmp_dist'
-  - 'clean:prod'  
+  - 'clean:prod'
   - 'concurrent:optimize'
   
   - 'includes:dev'
@@ -64,3 +55,25 @@ build_prod:
   - 'copy:prod'
   
   - 'clean:tmp_dist'
+
+
+### Testing ###
+test:
+  - 'unit'
+  - 'ui'
+
+
+unit:
+  - 'qunit'
+
+ui:
+  - 'nightwatch'
+
+
+### Others ###
+lint:
+  - 'jshint'
+  - 'csslint'
+  # Fix task (exits on execution)
+  #- 'lesslint'
+  - 'jsonlint'
