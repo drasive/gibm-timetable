@@ -137,12 +137,10 @@
         // Fade out container
         professionsContainer.stop().fadeOut();
 
-        // TODO: Show loading animation
-
         logAjaxProcess('Requesting all professions');
         getProfessions()
             .success(function (data) {
-                logAjaxProcess('Sucessfully received ' + data.length + ' professions', true);
+                logAjaxProcess('Successfully received ' + data.length + ' professions', true);
 
                 // Add professions
                 $.each(data, function (index, item) {
@@ -182,16 +180,14 @@
         classesContainer.stop().fadeOut();
         timetableContainer.stop().fadeOut();
 
-        // TODO: Show loading animation
-
         logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
         getClasses(parseInt(professionsSelection.val()))
             .success(function (data) {
-                logAjaxProcess('Sucessfully received ' + data.length + ' classes', true);
+                logAjaxProcess('Successfully received ' + data.length + ' classes', true);
 
                 if (professionsSelection.val() !== '-') { // Profession selection hasn't changed during AJAX request
                     // Clear old classes
-                    classesSelection.find('option[value != "-"]').remove();
+                    classesSelection.find('option:not([value = "-"])').remove();
 
                     // Add new classes
                     $.each(data, function (index, item) {
@@ -234,14 +230,12 @@
         var fadingTarget = fadeWeekSelection ? timetableContainer : lessonsContainer;
         fadingTarget.stop().fadeOut();
 
-        // TODO: Show loading animation
-
         var week = weekCurrent.data('week');
         var year = weekCurrent.data('year');
         logAjaxProcess('Requesting lessons for class #' + classesSelection.val() + ' in week ' + formatWeekOfYear(week, year));
         getLessons(parseInt(classesSelection.val()), week, year)
             .success(function (data) {
-                logAjaxProcess('Sucessfully received ' + data.length + ' lessons', true);
+                logAjaxProcess('Successfully received ' + data.length + ' lessons', true);
 
                 if (classesSelection.val() !== '-') { // Class selection hasn't changed during AJAX request
                     // Clear old lessons
@@ -306,6 +300,13 @@
         var weekStart = getDateOfWeek(week, year);
         var weekEnd = addDaysToDate(weekStart, 6);
         weekCurrent.prop('title', formatDate(weekStart) + ' - ' + formatDate(weekEnd));
+
+        // Update week-reset button enabled
+        if (year === today.getFullYear() && week === getWeekOfYear(today)) {
+            weekReset.attr("disabled", "disabled");
+        } else {
+            weekReset.removeAttr("disabled");
+        }
     }
 
     // Helpers
