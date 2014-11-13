@@ -258,11 +258,6 @@
                             $('<td>' + item.tafel_kommentar + '</td>').appendTo(row);
                         });
                     } else {
-                        // Update no-data message
-                        var weekStart = getDateOfWeek(week, year);
-                        var weekEnd = addDaysToDate(weekStart, 6);
-                        lessonsNoData.text('There is no school during this week (' + formatDate(weekStart) + ' - ' + formatDate(weekEnd) + ') for this class.');
-
                         // Show no-data message
                         lessonsResult.hide(0);
                         lessonsNoData.show(0);
@@ -295,13 +290,12 @@
         logUiProcess('Updated the selected week to ' + formatWeekOfYear(week, year));
 
         // Set text and title
-        weekCurrent.text('Week ' + formatWeekOfYear(week, year));
-
         var weekStart = getDateOfWeek(week, year);
         var weekEnd = addDaysToDate(weekStart, 6);
-        weekCurrent.prop('title', formatDate(weekStart) + ' - ' + formatDate(weekEnd));
 
-        // Update week-reset button enabled
+        weekCurrent.text('Week ' + week + ' (' + formatDate(weekStart) + ' - ' + formatDate(weekEnd) + ') - ' + year + '');
+
+        // Update week-reset button enabled/ disabled
         if (year === today.getFullYear() && week === getWeekOfYear(today)) {
             weekReset.attr("disabled", "disabled");
         } else {
