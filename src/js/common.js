@@ -12,6 +12,24 @@ function isInteger(object) {
     return object === +object && object === (object | 0);
 }
 
+// UI
+function showLoadingAnimation(elements, size) {
+    if (typeof size === "undefined" || size === null) {
+        size = '30px';
+    }
+
+    elements.waitMe({
+        effect: 'roundBounce',
+        bg: 'rgba(245, 245, 245, 0.7)',
+        sizeW: size,
+        sizeH: size
+    });
+}
+
+function hideLoadingAnimation(elements) {
+    elements.waitMe('hide');
+}
+
 // Storage
 function storageSet(key, value) {
     if (Modernizr.localstorage) {

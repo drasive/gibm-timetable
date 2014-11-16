@@ -137,6 +137,8 @@
         // Fade out container
         professionsContainer.stop().fadeOut();
 
+        showLoadingAnimation(professionsContainer);
+
         logAjaxProcess('Requesting all professions');
         getProfessions()
             .success(function (data) {
@@ -172,6 +174,9 @@
 
                 // Fade in container
                 professionsContainer.stop().fadeIn();
+            })
+            .complete(function () {
+                hideLoadingAnimation(professionsContainer);
             });
     }
 
@@ -179,6 +184,8 @@
         // Fade out container
         classesContainer.stop().fadeOut();
         timetableContainer.stop().fadeOut();
+
+        showLoadingAnimation(classesContainer);
 
         logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
         getClasses(parseInt(professionsSelection.val()))
@@ -220,6 +227,9 @@
 
                 // Fade in container
                 classesContainer.stop().fadeIn();
+            })
+            .complete(function () {
+                hideLoadingAnimation(classesContainer);
             });
     }
 
@@ -229,6 +239,8 @@
         // Fade out container
         var fadingTarget = fadeWeekSelection ? timetableContainer : lessonsContainer;
         fadingTarget.stop().fadeOut();
+
+        showLoadingAnimation(lessonsContainer);
 
         var week = weekCurrent.data('week');
         var year = weekCurrent.data('year');
@@ -287,6 +299,9 @@
 
                 // Fade in container
                 fadingTarget.stop().fadeIn();
+            })
+            .complete(function() {
+                hideLoadingAnimation(lessonsContainer);
             });
     }
 
