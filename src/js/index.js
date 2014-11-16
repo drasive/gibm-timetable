@@ -248,7 +248,14 @@
                         lessonsError.hide(0);
 
                         // Add new lessons
+                        var lastDayOfWeek = null;
                         $.each(data, function (index, item) {
+                            // Add row to visually distinguish different days of the week
+                            if (lastDayOfWeek !== null && lastDayOfWeek !== item.tafel_wochentag) {
+                                $('<tr><td colspan="6"></td></tr>').appendTo(lessons);
+                            }
+
+                            // Add lesson data 
                             var row = $('<tr id="l' + item.tafel_id + '"></tr>').appendTo(lessons);
                             $('<td>' + formatDayOfWeek(parseInt(item.tafel_wochentag)).substr(0, 3) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
                             $('<td>' + formatTime(item.tafel_von) + ' - ' + formatTime(item.tafel_bis) + '</td>').appendTo(row);
@@ -256,6 +263,8 @@
                             $('<td>' + item.tafel_longfach + '</td>').appendTo(row);
                             $('<td>' + item.tafel_raum + '</td>').appendTo(row);
                             $('<td>' + item.tafel_kommentar + '</td>').appendTo(row);
+
+                            lastDayOfWeek = item.tafel_wochentag;
                         });
                     } else {
                         // Show no-data message
