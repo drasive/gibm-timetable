@@ -1,5 +1,5 @@
 module.exports = {
   dist: {
-    src: ['src/css/**/*.css']
+    src: ['src/css/*.css']
   }
 };
