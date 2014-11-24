@@ -7,12 +7,8 @@ This was a school project for module #133 at the [GIB Muttenz](http://www.gibm.c
 <insert>
 - Modern, easy to use and responsive user interface
 
-## Screenshots <replace placeholders>
-### 1. Image 1
-![Image 1](/docs/_source/image1.png "Image 1")
-
-### 2. Image 2
-![Image 2](/docs/_source/image2.png "Image 2")
+## Screenshot <replace placeholders>
+![GIBM Timetable](/docs/screenshot.png "GIBM Timetable")
 
 ## Contributing
 To contribute, fork the repository and send me a pull request with your changes (*develop* branch).  
