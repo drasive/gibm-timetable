@@ -50,8 +50,8 @@
         if (professionsSelection.val() !== '-') {
             loadClasses();
         } else {
-            classesContainer.stop().fadeOut();
-            timetableContainer.stop().fadeOut();
+            fadeOut(classesContainer);
+            fadeOut(timetableContainer);
         }
     });
 
@@ -63,7 +63,7 @@
         if (classesSelection.val() !== '-') {
             loadTimetable();
         } else {
-            timetableContainer.stop().fadeOut();
+            fadeOut(timetableContainer);
         }
     });
 
@@ -135,7 +135,7 @@
     // Methods
     function loadProfessions() {
         // Fade out container
-        professionsContainer.stop().fadeOut();
+        fadeOut(professionsContainer);
 
         logAjaxProcess('Requesting all professions');
         getProfessions()
@@ -152,7 +152,7 @@
                 professionsError.hide(0);
 
                 // Fade in container
-                professionsContainer.stop().fadeIn();
+                fadeIn(professionsContainer);
 
                 // Use saved selection
                 var savedProfessionId = storageGet("professionId");
@@ -171,14 +171,14 @@
                 professionsError.show(0);
 
                 // Fade in container
-                professionsContainer.stop().fadeIn();
+                fadeIn(professionsContainer);
             });
     }
 
     function loadClasses() {
         // Fade out container
-        classesContainer.stop().fadeOut();
-        timetableContainer.stop().fadeOut();
+        fadeOut(classesContainer);
+        fadeOut(timetableContainer);
 
         logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
         getClasses(parseInt(professionsSelection.val()))
@@ -199,7 +199,7 @@
                     classesError.hide(0);
 
                     // Fade in container
-                    classesContainer.stop().fadeIn();
+                    fadeIn(classesContainer);
 
                     // Use saved selection
                     var savedClassId = storageGet('p' + professionsSelection.val() + "/classId");
@@ -219,7 +219,7 @@
                 classesError.show(0);
 
                 // Fade in container
-                classesContainer.stop().fadeIn();
+                fadeIn(classesContainer);
             });
     }
 
@@ -228,7 +228,7 @@
 
         // Fade out container
         var fadingTarget = fadeWeekSelection ? timetableContainer : lessonsContainer;
-        fadingTarget.stop().fadeOut();
+        fadeOut(fadingTarget);
 
         var week = weekCurrent.data('week');
         var year = weekCurrent.data('year');
@@ -274,7 +274,7 @@
                     }
 
                     // Fade in container
-                    fadingTarget.stop().fadeIn();
+                    fadeIn(fadingTarget);
                 }
             })
             .error(function (xhr, status, error) {
@@ -286,7 +286,7 @@
                 lessonsError.show(0);
 
                 // Fade in container
-                fadingTarget.stop().fadeIn();
+                fadeIn(fadingTarget);
             });
     }
 
