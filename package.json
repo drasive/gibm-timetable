@@ -1,7 +1,7 @@
 {
   "name": "gibm-timetable",
   "description": "Displays timetables for the classes at the GIBM (Switzerland).",
-  "version": "0.3.0-b",
+  "version": "0.3.1-b",
   "homepage": "https://github.com/drasive/gibm-timetable",
   "repository": {
     "type": "git",
