@@ -74,6 +74,6 @@ ui:
 lint:
   - 'jshint'
   - 'csslint'
-  # Fix task (exits on execution)
+  # TODO: Fix task (exits on execution)
   #- 'lesslint'
   - 'jsonlint'
