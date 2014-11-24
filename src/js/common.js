@@ -12,6 +12,15 @@ function isInteger(object) {
     return object === +object && object === (object | 0);
 }
 
+// UI
+function fadeOut(elements) {
+    elements.stop(true, false).fadeOut();
+}
+
+function fadeIn(elements) {
+    elements.stop(false, true).delay(120).fadeIn();
+}
+
 // Storage
 function storageSet(key, value) {
     if (Modernizr.localstorage) {
@@ -36,6 +45,7 @@ function storageGet(key) {
 
 // Date/ Time
 function getDateOfWeek(week, year) {
+    // Source: https://stackoverflow.com/questions/16590500/javascript-calculate-date-from-week-number#answer-16591175
     var simple = new Date(year, 0, 1 + (week - 1) * 7);
     var dow = simple.getDay();
 

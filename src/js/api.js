@@ -1,4 +1,5 @@
-﻿var apiTimeout = 60 * 1000;
+﻿// Use a higher value if it is clear to the user that something is loading
+var apiTimeout = 12 * 1000;
 
 function getProfessions() {
     return $.ajax('http://home.gibm.ch/interfaces/133/berufe.php', {

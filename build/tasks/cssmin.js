@@ -4,12 +4,13 @@ module.exports = {
       {
         '.tmp/dist/css/index-bundle.min.css': [
           'src/css/style.css',
-                  
+		  'src/css/plugins/jquery.waitMe.css',
+          
           'src/css/noscript.css',
           'src/css/no-fouc.css'
         ]
       },
-	  {
+      {
         '.tmp/dist/css/error-bundle.min.css': [
           'src/css/style.css'
         ]

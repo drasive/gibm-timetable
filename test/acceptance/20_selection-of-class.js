@@ -15,7 +15,7 @@ module.exports = {
     
     // TODO: Implement dynamic solution (issue #2)
     browser.waitForElementVisible("#week-current", 10000); // Week selection should be available
-    for (var i = 0 ; i < 1; i++) {
+    for (var i = 0 ; i < 3; i++) {
       browser.click("#week-previous"); // Go to previous week until current week is 45 - 2014
     }
     

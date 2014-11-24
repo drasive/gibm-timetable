@@ -50,8 +50,8 @@
         if (professionsSelection.val() !== '-') {
             loadClasses();
         } else {
-            classesContainer.stop().fadeOut();
-            timetableContainer.stop().fadeOut();
+            fadeOut(classesContainer);
+            fadeOut(timetableContainer);
         }
     });
 
@@ -63,7 +63,7 @@
         if (classesSelection.val() !== '-') {
             loadTimetable();
         } else {
-            timetableContainer.stop().fadeOut();
+            fadeOut(timetableContainer);
         }
     });
 
@@ -135,14 +135,12 @@
     // Methods
     function loadProfessions() {
         // Fade out container
-        professionsContainer.stop().fadeOut();
-
-        // TODO: Show loading animation
+        fadeOut(professionsContainer);
 
         logAjaxProcess('Requesting all professions');
         getProfessions()
             .success(function (data) {
-                logAjaxProcess('Sucessfully received ' + data.length + ' professions', true);
+                logAjaxProcess('Successfully received ' + data.length + ' professions', true);
 
                 // Add professions
                 $.each(data, function (index, item) {
@@ -154,7 +152,7 @@
                 professionsError.hide(0);
 
                 // Fade in container
-                professionsContainer.stop().fadeIn();
+                fadeIn(professionsContainer);
 
                 // Use saved selection
                 var savedProfessionId = storageGet("professionId");
@@ -173,25 +171,23 @@
                 professionsError.show(0);
 
                 // Fade in container
-                professionsContainer.stop().fadeIn();
+                fadeIn(professionsContainer);
             });
     }
 
     function loadClasses() {
         // Fade out container
-        classesContainer.stop().fadeOut();
-        timetableContainer.stop().fadeOut();
-
-        // TODO: Show loading animation
+        fadeOut(classesContainer);
+        fadeOut(timetableContainer);
 
         logAjaxProcess('Requesting classes for profession #' + professionsSelection.val());
         getClasses(parseInt(professionsSelection.val()))
             .success(function (data) {
-                logAjaxProcess('Sucessfully received ' + data.length + ' classes', true);
+                logAjaxProcess('Successfully received ' + data.length + ' classes', true);
 
                 if (professionsSelection.val() !== '-') { // Profession selection hasn't changed during AJAX request
                     // Clear old classes
-                    classesSelection.find('option[value != "-"]').remove();
+                    classesSelection.find('option:not([value = "-"])').remove();
 
                     // Add new classes
                     $.each(data, function (index, item) {
@@ -203,7 +199,7 @@
                     classesError.hide(0);
 
                     // Fade in container
-                    classesContainer.stop().fadeIn();
+                    fadeIn(classesContainer);
 
                     // Use saved selection
                     var savedClassId = storageGet('p' + professionsSelection.val() + "/classId");
@@ -223,7 +219,7 @@
                 classesError.show(0);
 
                 // Fade in container
-                classesContainer.stop().fadeIn();
+                fadeIn(classesContainer);
             });
     }
 
@@ -232,16 +228,14 @@
 
         // Fade out container
         var fadingTarget = fadeWeekSelection ? timetableContainer : lessonsContainer;
-        fadingTarget.stop().fadeOut();
-
-        // TODO: Show loading animation
+        fadeOut(fadingTarget);
 
         var week = weekCurrent.data('week');
         var year = weekCurrent.data('year');
         logAjaxProcess('Requesting lessons for class #' + classesSelection.val() + ' in week ' + formatWeekOfYear(week, year));
         getLessons(parseInt(classesSelection.val()), week, year)
             .success(function (data) {
-                logAjaxProcess('Sucessfully received ' + data.length + ' lessons', true);
+                logAjaxProcess('Successfully received ' + data.length + ' lessons', true);
 
                 if (classesSelection.val() !== '-') { // Class selection hasn't changed during AJAX request
                     // Clear old lessons
@@ -254,7 +248,14 @@
                         lessonsError.hide(0);
 
                         // Add new lessons
+                        var lastDayOfWeek = null;
                         $.each(data, function (index, item) {
+                            // Add row to visually distinguish different days of the week
+                            if (lastDayOfWeek !== null && lastDayOfWeek !== item.tafel_wochentag) {
+                                $('<tr><td colspan="6"></td></tr>').appendTo(lessons);
+                            }
+
+                            // Add lesson data 
                             var row = $('<tr id="l' + item.tafel_id + '"></tr>').appendTo(lessons);
                             $('<td>' + formatDayOfWeek(parseInt(item.tafel_wochentag)).substr(0, 3) + ', ' + formatDate(item.tafel_datum) + '</td>').appendTo(row);
                             $('<td>' + formatTime(item.tafel_von) + ' - ' + formatTime(item.tafel_bis) + '</td>').appendTo(row);
@@ -262,13 +263,10 @@
                             $('<td>' + item.tafel_longfach + '</td>').appendTo(row);
                             $('<td>' + item.tafel_raum + '</td>').appendTo(row);
                             $('<td>' + item.tafel_kommentar + '</td>').appendTo(row);
+
+                            lastDayOfWeek = item.tafel_wochentag;
                         });
                     } else {
-                        // Update no-data message
-                        var weekStart = getDateOfWeek(week, year);
-                        var weekEnd = addDaysToDate(weekStart, 6);
-                        lessonsNoData.text('There is no school during this week (' + formatDate(weekStart) + ' - ' + formatDate(weekEnd) + ') for this class.');
-
                         // Show no-data message
                         lessonsResult.hide(0);
                         lessonsNoData.show(0);
@@ -276,7 +274,7 @@
                     }
 
                     // Fade in container
-                    fadingTarget.stop().fadeIn();
+                    fadeIn(fadingTarget);
                 }
             })
             .error(function (xhr, status, error) {
@@ -288,7 +286,7 @@
                 lessonsError.show(0);
 
                 // Fade in container
-                fadingTarget.stop().fadeIn();
+                fadeIn(fadingTarget);
             });
     }
 
@@ -301,11 +299,17 @@
         logUiProcess('Updated the selected week to ' + formatWeekOfYear(week, year));
 
         // Set text and title
-        weekCurrent.text('Week ' + formatWeekOfYear(week, year));
-
         var weekStart = getDateOfWeek(week, year);
         var weekEnd = addDaysToDate(weekStart, 6);
-        weekCurrent.prop('title', formatDate(weekStart) + ' - ' + formatDate(weekEnd));
+
+        weekCurrent.text('Week ' + week + ' (' + formatDate(weekStart) + ' - ' + formatDate(weekEnd) + ') - ' + year + '');
+
+        // Update week-reset button enabled/ disabled
+        if (year === today.getFullYear() && week === getWeekOfYear(today)) {
+            weekReset.attr("disabled", "disabled");
+        } else {
+            weekReset.removeAttr("disabled");
+        }
     }
 
     // Helpers
