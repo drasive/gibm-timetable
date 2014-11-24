@@ -2,7 +2,7 @@ module("API");
 
 // ========== getProfessions()
 QUnit.asyncTest( "Get all professions", function(assert) {
-    apiTimeout = 10 * 1000;
+    apiTimeout = 15 * 1000;
     
     getProfessions()
         .success(function (data) {
@@ -30,7 +30,7 @@ QUnit.test( "Get classes general", function(assert) {
 
 
 QUnit.asyncTest( "Get all classes", function(assert) {
-    apiTimeout = 10 * 1000;
+    apiTimeout = 15 * 1000;
     
     getClasses()
         .success(function (data) {
@@ -46,7 +46,7 @@ QUnit.asyncTest( "Get all classes", function(assert) {
 });
 
 QUnit.asyncTest( "Get classes for profession #10", function(assert) {
-    apiTimeout = 10 * 1000;
+    apiTimeout = 15 * 1000;
     
     var professionId = 10; // "Informatiker/innen"
     getClasses(professionId)
@@ -63,7 +63,7 @@ QUnit.asyncTest( "Get classes for profession #10", function(assert) {
 });
 
 QUnit.asyncTest( "Get classes for profession #15", function(assert) {
-    apiTimeout = 10 * 1000;
+    apiTimeout = 15 * 1000;
     
     var professionId = 15; // "Metallbauer/innen"
     getClasses(professionId)
@@ -108,7 +108,7 @@ QUnit.test( "Get lessons general", function(assert) {
 
 
 QUnit.asyncTest( "Get lessons for class #2467010", function(assert) {
-    apiTimeout = 10 * 1000;
+    apiTimeout = 15 * 1000;
     
     var classId = 2467010; // "IAP 14-18 B"
     getLessons(classId)
@@ -125,7 +125,7 @@ QUnit.asyncTest( "Get lessons for class #2467010", function(assert) {
 });
 
 QUnit.asyncTest( "Get lessons for class #2467098 in week 45-2014", function(assert) {
-    apiTimeout = 10 * 1000;
+    apiTimeout = 15 * 1000;
     
     var classId = 2467098; // "MA 14-17 B"
 	var week = 45;
