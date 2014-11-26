@@ -1,11 +1,13 @@
-# gibm-timetable [![Dependency Status](https://gemnasium.com/drasive/gibm-timetable.svg)](https://gemnasium.com/drasive/gibm-timetable) [![Code Climate](https://codeclimate.com/github/drasive/gibm-timetable/badges/gpa.svg)](https://codeclimate.com/github/drasive/gibm-timetable) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# gibm-timetable [![Code Climate](https://codeclimate.com/github/drasive/gibm-timetable/badges/gpa.svg)](https://codeclimate.com/github/drasive/gibm-timetable) [![Dependency Status](https://gemnasium.com/drasive/gibm-timetable.svg)](https://gemnasium.com/drasive/gibm-timetable)
 
 Displays timetables for the classes at the GIBM (Switzerland).  
 This was a school project for module #133 at the [GIB Muttenz](http://www.gibm.ch) (Switzerland).
 
 ## Features
-<insert>
+- Selection of profession, class and week for the timetable
+- Fast and asynchronous loading of up to date data
 - Modern, easy to use and responsive user interface
+- Selection of class is saved and restored automatically
 
 ## Screenshot <replace placeholders>
 ![GIBM Timetable](/docs/screenshot.png "GIBM Timetable")
@@ -35,5 +37,5 @@ To get a preview of how the *production* build will look, run `grunt prod` in th
 When you are done looking at the result, *cancel the command (Ctrl^C)*.
 
 ## License
-The files in this repository are released under the GNU GPL v3.0.  
+This project is released under the GNU GPL v3.0.  
 Please see the [license file](LICENSE.md) for further information.
