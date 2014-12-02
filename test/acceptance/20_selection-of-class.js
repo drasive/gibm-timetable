@@ -13,9 +13,11 @@ module.exports = {
       
       .click("#class option[value = '2467010']"); // Select class "IAP 14-18 B"
     
+    // ATTENTION: If this TEST FAILS to run, check if the loop below
+    // correctly navigates to week 45 - 2014 or increase the iteration count as needed
     // TODO: Implement dynamic solution (issue #2)
     browser.waitForElementVisible("#week-current", 10000); // Week selection should be available
-    for (var i = 0 ; i < 3; i++) {
+    for (var i = 0 ; i < 4; i++) {
       browser.click("#week-previous"); // Go to previous week until current week is 45 - 2014
     }
     
